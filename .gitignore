@@ -1,3 +1,8 @@
-/bin/
 .classpath
 .project
+.vscode
+*.class
+/bin/
+aims.session.sql
+*.ipynb
+test/notebook
