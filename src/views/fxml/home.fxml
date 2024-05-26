@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="788.0" prefWidth="1326.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox prefHeight="73.0" prefWidth="1326.0" style="-fx-background-color: BLACK; -fx-border-color: GRAY;">
+         <children>
+            <VBox prefHeight="102.0" prefWidth="231.0">
+               <children>
+                  <Pane prefHeight="102.0" prefWidth="237.0">
+                     <children>
+                        <ImageView fx:id="aimsImage" fitHeight="61.0" fitWidth="70.0" layoutX="37.0" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+                           <image>
+                              <Image url="@../../../assets/images/Logo2.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="14.0" layoutY="42.0" prefHeight="41.0" prefWidth="100.0" text="    AIMS" textAlignment="CENTER" textFill="#fbfdff">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="45.0" layoutY="75.0" prefHeight="41.0" prefWidth="44.0" text="Sort:">
+                           <font>
+                              <Font size="21.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+               </children>
+            </VBox>
+            <HBox prefHeight="102.0" prefWidth="882.0">
+               <children>
+                  <Pane prefHeight="102.0" prefWidth="158.0" />
+                  <Pane prefHeight="102.0" prefWidth="562.0">
+                     <children>
+                        <TextField fx:id="searchField" alignment="CENTER" layoutX="17.0" layoutY="14.0" prefHeight="48.0" prefWidth="528.0" promptText="Search" style="-fx-background-radius: 200px;">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </TextField>
+                        <ImageView fitHeight="33.0" fitWidth="29.0" layoutX="27.0" layoutY="22.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../assets/images/search2.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+               </children>
+            </HBox>
+            <VBox prefHeight="102.0" prefWidth="161.0">
+               <children>
+                  <Pane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fx:id="cartImage" fitHeight="61.0" fitWidth="119.0" layoutX="27.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+                           <image>
+                              <Image url="@../../../assets/images/cart2.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="numMediaInCart" accessibleRole="TEXT_FIELD" alignment="CENTER" contentDisplay="TOP" layoutX="65.0" layoutY="37.0" prefHeight="16.0" prefWidth="16.0" style="-fx-background-color: #ff0000; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 15px;" text="0" textFill="#f70000" textOverrun="CLIP" />
+                     </children>
+                  </Pane>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <HBox fx:id="hboxMedia" layoutX="24.0" layoutY="123.0" prefHeight="629.0" prefWidth="1283.0">
+         <children>
+            <VBox fx:id="vboxMedia1" alignment="CENTER" prefHeight="630.0" prefWidth="290.0" />
+            <VBox fx:id="vboxMedia2" alignment="TOP_CENTER" prefHeight="630.0" prefWidth="250.0" />
+            <VBox fx:id="vboxMedia3" alignment="CENTER" prefHeight="629.0" prefWidth="250.0" />
+            <VBox alignment="CENTER" prefHeight="629.0" prefWidth="250.0" />
+            <VBox prefHeight="630.0" prefWidth="258.0" />
+         </children>
+      </HBox>
+      <ChoiceBox fx:id="sortButton" layoutX="95.0" layoutY="85.0" prefWidth="150.0" />
+   </children>
+</AnchorPane>
