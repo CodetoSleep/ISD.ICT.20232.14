@@ -38,6 +38,9 @@ public class CartScreenHandler extends BaseScreenHandler {
 
 	@FXML
 	VBox vboxCart;
+	
+	@FXML
+	private Label homeBtn;
 
 	@FXML
 	private Label shippingFees;
@@ -64,6 +67,9 @@ public class CartScreenHandler extends BaseScreenHandler {
 
 		// on mouse clicked, we back to home
 		aimsImage.setOnMouseClicked(e -> {
+			homeScreenHandler.show();
+		});
+		homeBtn.setOnMouseClicked(e -> {
 			homeScreenHandler.show();
 		});
 
@@ -164,9 +170,16 @@ public class CartScreenHandler extends BaseScreenHandler {
 				CartMedia cartMedia = (CartMedia) cm;
 				MediaHandler mediaCartScreen = new MediaHandler(Configs.CART_MEDIA_PATH, this);
 				mediaCartScreen.setCartMedia(cartMedia);
+			
 
 				// add spinner
 				vboxCart.getChildren().add(mediaCartScreen.getContent());
+				
+				//adding somespace ...
+				VBox innerVBox = new VBox();
+		        innerVBox.setPrefHeight(10);
+		        vboxCart.getChildren().add(innerVBox);
+				
 			}
 			// calculate subtotal and amount
 			updateCartAmount();
