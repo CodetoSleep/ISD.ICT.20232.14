@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitMenuButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.effect.SepiaTone?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="702.0" prefWidth="1326.0" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox layoutX="211.0" prefHeight="104.0" prefWidth="1115.0" style="-fx-background-color: #ccebff; -fx-border-color: #33adff;">
+         <children>
+            <Pane layoutX="902.0" layoutY="11.0" prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Button layoutX="26.0" layoutY="29.0" mnemonicParsing="false" text="&lt;">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button layoutX="78.0" layoutY="29.0" mnemonicParsing="false" text="&gt;">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+               </children>
+            </Pane>
+            <HBox prefHeight="102.0" prefWidth="143.0">
+               <children>
+                  <Pane prefHeight="102.0" prefWidth="15.0">
+                     <children>
+                        <SplitMenuButton fx:id="splitMenuBtnSearch" layoutX="30.0" layoutY="25.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="77.0" text="All">
+                          <items>
+                          </items>
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </SplitMenuButton>
+                     </children>
+                  </Pane>
+               </children>
+            </HBox>
+            <Pane prefHeight="102.0" prefWidth="668.0">
+               <children>
+                  <Button layoutX="558.0" layoutY="26.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="47.0" styleClass="search">
+                     <graphic>
+                        <ImageView fitHeight="41.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true" styleClass="search">
+                           <image>
+                              <Image url="@../../../assets/images/search-interface-symbol.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                     </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <TextField layoutX="9.0" layoutY="23.0" prefHeight="56.0" prefWidth="541.0" promptText="Search" style="-fx-background-radius: 100;">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="TEXT" />
+                     </cursor>
+                  </TextField>
+               </children>
+            </Pane>
+            <Pane prefHeight="102.0" prefWidth="159.0">
+               <children>
+                  <ImageView fx:id="cartImage" fitHeight="75.0" fitWidth="64.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+                     <image>
+                        <Image url="@../../../assets/images/add-cart.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="numMediaInCart" layoutX="48.0" layoutY="10.0" prefHeight="31.0" prefWidth="64.0" styleClass="cart" text="0 media" textFill="#e34f4f">
+                     <padding>
+                        <Insets bottom="3.0" left="5.0" top="3.0" />
+                     </padding>
+                  </Label>
+               </children>
+            </Pane>
+         </children>
+      </HBox>
+      <HBox fx:id="hboxMedia" layoutX="249.0" layoutY="123.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="546.0" prefWidth="1043.0">
+         <children>
+            <VBox fx:id="vboxMedia1" prefHeight="600.0" prefWidth="348.0">
+               <padding>
+                  <Insets left="20.0" />
+               </padding>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin></VBox>
+            <VBox fx:id="vboxMedia2" prefHeight="600.0" prefWidth="348.0">
+               <padding>
+                  <Insets left="20.0" />
+               </padding>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin></VBox>
+            <VBox fx:id="vboxMedia3" prefHeight="600.0" prefWidth="348.0">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <padding>
+                  <Insets left="20.0" />
+               </padding></VBox>
+         </children>
+      </HBox>
+      <AnchorPane prefHeight="654.0" prefWidth="211.0" style="-fx-background-color: #e1e1e2;">
+         <children>
+            <Pane prefHeight="102.0" prefWidth="211.0">
+               <children>
+                  <ImageView fx:id="aimsImage" fitHeight="94.0" fitWidth="112.0" layoutX="48.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+                     <image>
+                        <Image url="@../../../../../../../../../../mnt/nguyenlm/DriveD/Documents/UNIVERSITY/PERSONAL/PROJECT/Java/TA-TKXDPM/AIMS/assets/images/Logo.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <effect>
+                        <SepiaTone />
+                     </effect>
+                  </ImageView>
+                  <Label layoutX="53.0" layoutY="66.0" prefHeight="41.0" prefWidth="100.0" text="    AIMS" textAlignment="CENTER" textFill="#5091e6">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <VBox layoutY="180.0" prefHeight="586.0" prefWidth="211.0">
+               <children>
+                  <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="211.0" styleClass="myElement">
+                     <children>
+                        <ImageView fitHeight="25.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../assets/images/home.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <Label text="Home" />
+                     </children>
+                     <padding>
+                        <Insets left="30.0" />
+                     </padding>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="54.0" prefWidth="210.0" styleClass="myElement">
+                     <children>
+                        <ImageView fitHeight="25.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../assets/images/grocery-store.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <Label text="Cart" />
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <effect>
+                        <Blend />
+                     </effect>
+                     <padding>
+                        <Insets left="30.0" />
+                     </padding>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="211.0" styleClass="myElement">
+                     <children>
+                        <ImageView fitHeight="25.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../assets/images/cashless-payment.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <Label text="Payment">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets left="30.0" />
+                     </padding>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="211.0" styleClass="myElement">
+                     <children>
+                        <ImageView fitHeight="25.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../assets/images/file.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <Label text="History" />
+                     </children>
+                     <padding>
+                        <Insets left="30.0" />
+                     </padding>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

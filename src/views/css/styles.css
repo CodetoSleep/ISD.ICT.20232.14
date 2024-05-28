@@ -1,0 +1,17 @@
+.myElement:hover {
+    -fx-background-color: #fff; /* Màu nền thay đổi khi hover */
+    -fx-font-weight: bold;
+    -fx-font-size: 18px;
+}
+.btn:hover {
+    -fx-text-fill:  #00a67d; 
+    -fx-font-weight: bold;
+}
+.cart {
+	-fx-border-color: #e55050; /* Màu của border */
+    -fx-border-width: 2px; /* Độ dày của border */
+    -fx-border-radius: 10px; /* Độ cong của góc border */
+ }
+.search {
+	-fx-cursor: hand;
+}
