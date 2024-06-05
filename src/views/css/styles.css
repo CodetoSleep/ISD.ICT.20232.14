@@ -15,3 +15,18 @@
 .search {
 	-fx-cursor: hand;
 }
+.btnPlaceOrder:hover {
+	-fx-background-color: green;
+}
+.btnPlaceOrder {
+	-fx-background-color: #78cd67;
+}
+.btnContinue {
+	-fx-background-color: #1a73e8;
+}
+.btnContinue:hover {
+	-fx-background-color: #4e7bcc;
+}
+.btnCancel {
+	-fx-background-color: #fff;
+}
