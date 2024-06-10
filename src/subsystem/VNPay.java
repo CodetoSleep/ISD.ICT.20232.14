@@ -6,7 +6,7 @@ import entity.payment.CreditCard;
 import entity.payment.PaymentTransaction;
 
 
-public interface InterbankInterface {
+public interface VNPay {
 
 	public abstract PaymentTransaction payOrder(CreditCard card, int amount, String contents)
 			throws PaymentException, UnrecognizedException;

@@ -14,7 +14,7 @@ import subsystem.interbank.InterbankSubsystemController;
  * @author hieud
  *
  */
-public class InterbankSubsystem implements InterbankInterface {
+public class InterbankSubsystem implements VNPay {
 
 	/**
 	 * Represent the controller of the subsystem
@@ -31,7 +31,7 @@ public class InterbankSubsystem implements InterbankInterface {
 	}
 
 	/**
-	 * @see InterbankInterface#payOrder(entity.payment.CreditCard, int,
+	 * @see VNPay#payOrder(entity.payment.CreditCard, int,
 	 *      java.lang.String)
 	 */
 	public PaymentTransaction payOrder(CreditCard card, int amount, String contents) {
@@ -40,7 +40,7 @@ public class InterbankSubsystem implements InterbankInterface {
 	}
 
 	/**
-	 * @see InterbankInterface#refund(entity.payment.CreditCard, int,
+	 * @see VNPay#refund(entity.payment.CreditCard, int,
 	 *      java.lang.String)
 	 */
 	public PaymentTransaction refund(CreditCard card, int amount, String contents) {

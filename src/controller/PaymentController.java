@@ -10,7 +10,7 @@ import common.exception.UnrecognizedException;
 import entity.cart.Cart;
 import entity.payment.CreditCard;
 import entity.payment.PaymentTransaction;
-import subsystem.InterbankInterface;
+import subsystem.VNPay;
 import subsystem.InterbankSubsystem;
 
 
@@ -31,7 +31,7 @@ public class PaymentController extends BaseController {
 	/**
 	 * Represent the Interbank subsystem
 	 */
-	private InterbankInterface interbank;
+	private VNPay interbank;
 
 	/**
 	 * Validate the input date which should be in the format "mm/yy", and then
