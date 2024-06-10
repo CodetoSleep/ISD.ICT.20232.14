@@ -1,8 +1,6 @@
 package entity.media;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -19,13 +17,13 @@ public class Media {
     private static Logger LOGGER = Utils.getLogger(Media.class.getName());
 
     protected Statement stm;
-    protected int id;
+    protected int id;//
     protected String title;
     protected String category;
     protected int value; // the real price of product (eg: 450)
-    protected int price; // the price which will be displayed on browser (eg: 500)
-    protected int quantity;
-    protected String type;
+    protected int price;// // the price which will be displayed on browser (eg: 500)
+    protected int quantity;//
+    protected String type;//
     protected String imageURL;
 
     public Media() throws SQLException{
@@ -93,6 +91,26 @@ public class Media {
         stm.executeUpdate(" update " + tbname + " set" + " " 
                           + field + "=" + value + " " 
                           + "where id=" + id + ";");
+    }
+
+    public static void insertMedia(String title, String category, int price, int value, int quantity, String type, String imageURL) throws SQLException {
+        Connection connection = AIMSDB.getConnection();
+        String sql = "INSERT INTO Media (title, category, price, value, quantity, type, imageUrl) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        PreparedStatement pstmt = connection.prepareStatement(sql);
+
+        pstmt.setString(1, "New Book");
+        pstmt.setString(2, "Books");
+        pstmt.setInt(3, 150);
+        pstmt.setInt(4, price);
+        pstmt.setInt(5, 30);
+        pstmt.setString(6, "Book");
+        pstmt.setString(7, "http://example.com/image.jpg");
+
+        pstmt.executeUpdate();
+    }
+
+    public static void main(String[] args) throws SQLException {
+        insertMedia("test", "test", 20, 10, 10, "Book", "fhasdfs");
     }
 
     // getter and setter 
