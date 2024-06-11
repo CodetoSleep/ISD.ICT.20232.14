@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -12,9 +20,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ScrollPane hbarPolicy="NEVER" layoutX="194.0" layoutY="146.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="623.0" prefWidth="806.0">
+      <ScrollPane hbarPolicy="NEVER" layoutX="212.0" layoutY="145.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="624.0" prefWidth="782.0">
          <content>
             <VBox id="vboxCart" fx:id="vboxCart" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="567.0">
                <opaqueInsets>
@@ -22,16 +30,16 @@
                </opaqueInsets></VBox>
          </content>
       </ScrollPane>
-      <VBox layoutX="1001.0" layoutY="481.0" prefHeight="286.0" prefWidth="366.0" style="-fx-border-color: black;">
+      <VBox layoutX="994.0" layoutY="144.0" prefHeight="630.0" prefWidth="373.0" style="-fx-border-color: black;">
          <children>
-            <HBox prefHeight="56.0" prefWidth="316.0">
+            <HBox prefHeight="61.0" prefWidth="344.0">
                <children>
                   <Label fx:id="subtotal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="163.0" text="Subtotal:" textAlignment="CENTER">
                      <font>
-                        <Font name="System Bold" size="24.0" />
+                        <Font size="24.0" />
                      </font>
                   </Label>
-                  <Label fx:id="labelSubtotal" prefHeight="55.0" prefWidth="239.0" text="1000000 VND" textFill="#7bdc6e">
+                  <Label fx:id="labelSubtotal" alignment="CENTER_RIGHT" prefHeight="55.0" prefWidth="175.0" text="1000000 VND">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -45,15 +53,15 @@
                <children>
                   <Label prefHeight="58.0" prefWidth="54.0" text="VAT">
                      <font>
-                        <Font name="System Bold" size="24.0" />
+                        <Font size="24.0" />
                      </font>
                   </Label>
-                  <Label prefHeight="58.0" prefWidth="106.0" text="(10%):">
+                  <Label prefHeight="58.0" prefWidth="113.0" text="(10%):">
                      <font>
-                        <Font name="System Bold" size="24.0" />
+                        <Font size="24.0" />
                      </font>
                   </Label>
-                  <Label fx:id="labelVAT" prefHeight="58.0" prefWidth="167.0" text="1000 VND" textFill="#7bdc6e">
+                  <Label fx:id="labelVAT" alignment="CENTER_RIGHT" prefHeight="58.0" prefWidth="172.0" text="1000 VND">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -65,14 +73,14 @@
             </HBox>
             <HBox prefHeight="70.0" prefWidth="344.0">
                <children>
-                  <Label contentDisplay="CENTER" prefHeight="45.0" prefWidth="180.0" text="Amount:">
+                  <Label contentDisplay="CENTER" prefHeight="45.0" prefWidth="154.0" text="Total:" textFill="#cc5d21">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font>
                   </Label>
-                  <Label fx:id="labelAmount" prefHeight="45.0" prefWidth="206.0" text="1100000 VND" textFill="#7bdc6e">
+                  <Label fx:id="labelAmount" alignment="CENTER_RIGHT" prefHeight="45.0" prefWidth="184.0" text="1100000 VND" textFill="#cc5d21">
                      <font>
-                        <Font size="24.0" />
+                        <Font name="System Bold" size="24.0" />
                      </font>
                   </Label>
                </children>
@@ -80,98 +88,152 @@
                   <Insets left="20.0" />
                </VBox.margin>
             </HBox>
-            <Button fx:id="btnPlaceOrder" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#requestToPlaceOrder" prefHeight="55.0" prefWidth="316.0" style="-fx-background-color: BLACK; -fx-cursor: hand;" text="Place order" textFill="WHITE">
+            <Button fx:id="btnPlaceOrder" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#requestToPlaceOrder" prefHeight="55.0" prefWidth="316.0" styleClass="btnPlaceOrder" text="Place order" textFill="WHITE">
                <font>
                   <Font name="Segoe UI Bold" size="24.0" />
                </font>
                <VBox.margin>
                   <Insets left="20.0" />
                </VBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
          </children>
       </VBox>
-      <VBox layoutY="2.0" prefHeight="768.0" prefWidth="194.0" style="-fx-background-color: white;">
+      <VBox layoutY="-4.0" prefHeight="774.0" prefWidth="211.0" style="-fx-background-color: #e1e1e2;">
          <children>
-            <HBox prefHeight="100.0" prefWidth="200.0">
+            <Pane prefHeight="102.0" prefWidth="211.0">
                <children>
-                  <ImageView fx:id="aimsImage" fitHeight="84.0" fitWidth="89.0" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+                  <ImageView fx:id="aimsImage" fitHeight="94.0" fitWidth="112.0" layoutX="52.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
                      <image>
                         <Image url="@../../../assets/images/Logo2.png" />
                      </image>
-                  </ImageView>
-                  <Label fx:id="pageTitle" prefHeight="96.0" prefWidth="128.0" text="AIMS" textAlignment="CENTER" textFill="#c348dc">
-                     <font>
-                        <Font name="Segoe UI Semibold" size="42.0" />
-                     </font>
-                  </Label>
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="54.0" prefWidth="194.0">
-               <children>
-                  <ImageView fitHeight="29.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../assets/images/homeicon.png" />
-                     </image>
-                  </ImageView>
-                  <Label fx:id="homeBtn" prefHeight="30.0" prefWidth="68.0" text="HOME">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                     <padding>
-                        <Insets left="10.0" />
-                     </padding>
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
-                  </Label>
-               </children>
-               <VBox.margin>
-                  <Insets top="45.0" />
-               </VBox.margin>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="54.0" prefWidth="200.0">
-               <children>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../assets/images/search.png" />
-                     </image>
+                     <effect>
+                        <SepiaTone />
+                     </effect>
                   </ImageView>
-                  <Label fx:id="searchBtn" text="Search">
+                  <Label fx:id="pageTitle" layoutX="75.0" layoutY="73.0" prefHeight="25.0" prefWidth="62.0" text="AIMS" textAlignment="CENTER" textFill="#5091e6">
                      <font>
-                        <Font size="20.0" />
+                        <Font size="24.0" />
                      </font>
-                     <padding>
-                        <Insets left="10.0" />
-                     </padding>
                   </Label>
                </children>
-               <VBox.margin>
-                  <Insets top="50.0" />
-               </VBox.margin>
-            </HBox>
+            </Pane>
+            <Pane prefHeight="521.0" prefWidth="211.0">
+               <children>
+                  <VBox layoutY="91.0" prefHeight="459.0" prefWidth="211.0">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="211.0" styleClass="myElement">
+                           <children>
+                              <ImageView fitHeight="25.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../assets/images/home.png" />
+                                 </image>
+                              </ImageView>
+                              <Label fx:id="homeBtn" prefHeight="30.0" prefWidth="68.0" text="Home">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Label>
+                           </children>
+                           <padding>
+                              <Insets left="30.0" />
+                           </padding>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="211.0" styleClass="myElement">
+                           <children>
+                              <ImageView fitHeight="25.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../assets/images/grocery-store.png" />
+                                 </image>
+                              </ImageView>
+                              <Label fx:id="searchBtn" text="Cart">
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                           </children>
+                           <padding>
+                              <Insets left="30.0" />
+                           </padding>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="211.0" styleClass="myElement">
+                           <padding>
+                              <Insets left="30.0" />
+                           </padding>
+                           <children>
+                              <ImageView fitHeight="25.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../assets/images/cashless-payment.png" />
+                                 </image>
+                              </ImageView>
+                              <Label text="Payment">
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding></Label>
+                           </children>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="211.0" styleClass="myElement">
+                           <padding>
+                              <Insets left="30.0" />
+                           </padding>
+                           <children>
+                              <ImageView fitHeight="25.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../assets/images/file.png" />
+                                 </image></ImageView>
+                              <Label text="History">
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding></Label>
+                           </children>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </Pane>
          </children>
       </VBox>
-      <HBox layoutX="194.0" layoutY="90.0" prefHeight="56.0" prefWidth="806.0">
+      <HBox layoutX="212.0" layoutY="90.0" prefHeight="56.0" prefWidth="782.0">
          <children>
-            <Label alignment="BOTTOM_LEFT" prefHeight="56.0" prefWidth="340.0" text="Title" underline="true">
+            <Label alignment="BOTTOM_LEFT" prefHeight="56.0" prefWidth="340.0" text="Title" textFill="#78cd67" underline="true">
                <font>
-                  <Font size="30.0" />
+                  <Font size="27.0" />
                </font>
                <HBox.margin>
                   <Insets left="95.0" />
                </HBox.margin>
             </Label>
-            <Label alignment="BOTTOM_LEFT" prefHeight="55.0" prefWidth="131.0" text="Availbility" underline="true">
+            <Label alignment="BOTTOM_LEFT" prefHeight="55.0" prefWidth="131.0" text="Availbility" textFill="#78cd67" underline="true">
                <font>
-                  <Font size="30.0" />
+                  <Font size="27.0" />
                </font>
             </Label>
-            <Label alignment="BOTTOM_RIGHT" prefHeight="56.0" prefWidth="160.0" text="Price" underline="true">
+            <Label alignment="BOTTOM_RIGHT" prefHeight="56.0" prefWidth="160.0" text="Price" textFill="#78cd67" underline="true">
                <font>
-                  <Font size="30.0" />
+                  <Font size="27.0" />
                </font>
                <HBox.margin>
                   <Insets />
@@ -179,11 +241,31 @@
             </Label>
          </children>
       </HBox>
-      <HBox alignment="CENTER" layoutX="194.0" layoutY="14.0" prefHeight="83.0" prefWidth="806.0">
+      <HBox alignment="CENTER_LEFT" layoutX="212.0" layoutY="-3.0" prefHeight="109.0" prefWidth="1154.0" style="-fx-background-color: #ccebff; -fx-border-color: #33adff;">
          <children>
+            <Pane prefHeight="107.0" prefWidth="489.0">
+               <children>
+                  <Button layoutX="26.0" layoutY="29.0" mnemonicParsing="false" prefHeight="0.0" prefWidth="46.0" text="&lt;">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Button>
+                  <Button layoutX="89.0" layoutY="29.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="46.0" text="&gt;">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Button>
+               </children>
+            </Pane>
             <ImageView fitHeight="74.0" fitWidth="76.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../assets/images/cart.png" />
+                  <Image url="@../../../assets/images/add-cart.png" />
                </image>
             </ImageView>
             <Label text="Cart">
@@ -193,10 +275,5 @@
             </Label>
          </children>
       </HBox>
-      <ImageView fitHeight="100.0" fitWidth="121.0" layoutX="1216.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../assets/images/usericon.png" />
-         </image>
-      </ImageView>
    </children>
 </AnchorPane>
