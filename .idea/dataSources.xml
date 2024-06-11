@@ -11,7 +11,7 @@
       </jdbc-additional-properties>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="aims.db" uuid="dc836374-61bf-4d74-a57c-91d4d3d68d63">
+    <data-source source="LOCAL" name="aims.db" uuid="a37e1069-2770-4e9a-96c7-7ee32f5a6111">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>

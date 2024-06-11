@@ -25,6 +25,27 @@ public class Media {
     protected int quantity;//
     protected String type;//
     protected String imageURL;
+    protected int rushOrder;
+
+    public int getRushOrder() {
+        return rushOrder;
+    }
+
+    public Media(int id, String title, String category, int value, int price, int quantity, String type, String imageURL, int rushOrder) {
+        this.id = id;
+        this.title = title;
+        this.category = category;
+        this.value = value;
+        this.price = price;
+        this.quantity = quantity;
+        this.type = type;
+        this.imageURL = imageURL;
+        this.rushOrder = rushOrder;
+    }
+
+    public void setRushOrder(int rushOrder) {
+        this.rushOrder = rushOrder;
+    }
 
     public Media() throws SQLException{
         stm = AIMSDB.getConnection().createStatement();
@@ -93,22 +114,33 @@ public class Media {
                           + "where id=" + id + ";");
     }
 
-    public void insertMedia(String title, String category, int price, int value, int quantity, String type, String imageURL) throws SQLException {
+    public void insertMedia(String title, String category, int price, int value, int quantity, String type, String imageUrl, int rushOrder) throws SQLException {
         Connection connection = AIMSDB.getConnection();
-        String sql = "INSERT INTO Media (title, category, price, value, quantity, type, imageUrl) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Media (title, category, price, value, quantity, type, imageUrl, rushOrder) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement pstmt = connection.prepareStatement(sql);
 
-        pstmt.setString(1, "Minh Test");
-        pstmt.setString(2, "Books");
-        pstmt.setInt(3, 150);
-        pstmt.setInt(4, price);
-        pstmt.setInt(5, 30);
-        pstmt.setString(6, "Book");
-        pstmt.setString(7, "http://example.com/image.jpg");
+        pstmt.setString(1, title);
+        pstmt.setString(2, category);
+        pstmt.setInt(3, price);
+        pstmt.setInt(4, value);
+        pstmt.setInt(5, quantity);
+        pstmt.setString(6, type);
+        pstmt.setString(7, imageUrl);
+        pstmt.setInt(8, rushOrder);
 
         pstmt.executeUpdate();
     }
 
+    public void removeMedia(int id) throws SQLException {
+        String sql = "DELETE FROM Media WHERE id = ?";
+        PreparedStatement pstmt = AIMSDB.getConnection().prepareStatement(sql);
+        pstmt.setInt(1, id);
+        pstmt.executeUpdate();
+    }
+
+    public static void main(String[] args) throws SQLException {
+        //insertMedia("Title", "Category", 10, 100, 20, "Type", "ImageUrl", 1);
+    }
     // getter and setter 
     public int getId() {
         return this.id;
