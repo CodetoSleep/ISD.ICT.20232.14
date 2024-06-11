@@ -93,12 +93,12 @@ public class Media {
                           + "where id=" + id + ";");
     }
 
-    public static void insertMedia(String title, String category, int price, int value, int quantity, String type, String imageURL) throws SQLException {
+    public void insertMedia(String title, String category, int price, int value, int quantity, String type, String imageURL) throws SQLException {
         Connection connection = AIMSDB.getConnection();
         String sql = "INSERT INTO Media (title, category, price, value, quantity, type, imageUrl) VALUES (?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement pstmt = connection.prepareStatement(sql);
 
-        pstmt.setString(1, "New Book");
+        pstmt.setString(1, "Minh Test");
         pstmt.setString(2, "Books");
         pstmt.setInt(3, 150);
         pstmt.setInt(4, price);
@@ -107,10 +107,6 @@ public class Media {
         pstmt.setString(7, "http://example.com/image.jpg");
 
         pstmt.executeUpdate();
-    }
-
-    public static void main(String[] args) throws SQLException {
-        insertMedia("test", "test", 20, 10, 10, "Book", "fhasdfs");
     }
 
     // getter and setter 

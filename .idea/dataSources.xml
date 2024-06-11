@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="aims.db" uuid="8c862fc0-58d5-4cf2-85b0-ca649c8554d4">
+    <data-source source="LOCAL" name="aims_test.db" uuid="e5a04a79-64a5-4962-8973-87b9796406c7">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:C:\Users\minh.pham2\Downloads\AIMS-Student-master\AIMS-Student-master\assets\db\aims.db</jdbc-url>
+      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/assets/db/aims_test.db</jdbc-url>
       <jdbc-additional-properties>
         <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />
       </jdbc-additional-properties>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="test.db" uuid="d9dc8e48-7746-4ce8-8f4c-45abf7a5b2ff">
+    <data-source source="LOCAL" name="aims.db" uuid="dc836374-61bf-4d74-a57c-91d4d3d68d63">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/assets/db/test.db</jdbc-url>
+      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/assets/db/aims.db</jdbc-url>
       <jdbc-additional-properties>
         <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />
       </jdbc-additional-properties>

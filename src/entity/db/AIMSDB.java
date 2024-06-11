@@ -17,7 +17,7 @@ public class AIMSDB {
         if (connect != null) return connect;
         try {
 			Class.forName("org.sqlite.JDBC");
-            String url = "jdbc:sqlite:assets/db/test.db";
+            String url = "jdbc:sqlite:assets/db/aims.db";
             connect = DriverManager.getConnection(url);
             LOGGER.info("Connect database successfully");
         } catch (Exception e) {
