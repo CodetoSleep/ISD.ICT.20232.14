@@ -104,12 +104,13 @@ public class Media {
         return medium;
     }
 
-    public void updateMediaFieldById(String tbname, int id, String field, Object value) throws SQLException {
+    public void updateMediaFieldById(int id, String field, Object value) throws SQLException {
         Statement stm = AIMSDB.getConnection().createStatement();
+        String tableName = "Media";
         if (value instanceof String){
             value = "\"" + value + "\"";
         }
-        stm.executeUpdate(" update " + tbname + " set" + " " 
+        stm.executeUpdate(" update " + tableName + " set" + " "
                           + field + "=" + value + " " 
                           + "where id=" + id + ";");
     }
@@ -138,9 +139,6 @@ public class Media {
         pstmt.executeUpdate();
     }
 
-    public static void main(String[] args) throws SQLException {
-        //insertMedia("Title", "Category", 10, 100, 20, "Type", "ImageUrl", 1);
-    }
     // getter and setter 
     public int getId() {
         return this.id;
