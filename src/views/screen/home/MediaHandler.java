@@ -93,8 +93,8 @@ public class MediaHandler extends FXMLScreenHandler{
         // set the cover image of media
         File file = new File(media.getImageURL());
         Image image = new Image(file.toURI().toString());
-        mediaImage.setFitHeight(160);
-        mediaImage.setFitWidth(152);
+        mediaImage.setFitHeight(110);
+        mediaImage.setFitWidth(110);
         mediaImage.setImage(image);
 
         mediaTitle.setText(media.getTitle());

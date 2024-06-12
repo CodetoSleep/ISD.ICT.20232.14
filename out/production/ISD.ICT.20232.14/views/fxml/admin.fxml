@@ -6,7 +6,6 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.Blend?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -146,73 +145,17 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </HBox>
-                  <HBox fx:id="viewCart" alignment="CENTER_LEFT" prefHeight="54.0" prefWidth="210.0" styleClass="myElement">
+                  <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="50.0" prefWidth="211.0" styleClass="myElement">
                      <children>
                         <ImageView fitHeight="25.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../assets/images/grocery-store.png" />
+                              <Image url="@../../../assets/images/storage.png" />
                            </image>
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin>
                         </ImageView>
-                        <Label text="Cart" />
-                        <Label fx:id="numMediaInCart" prefHeight="31.0" prefWidth="64.0" styleClass="cart" text="0 media" textFill="#e34f4f">
-                           <padding>
-                              <Insets bottom="3.0" left="5.0" top="3.0" />
-                           </padding>
-                           <HBox.margin>
-                              <Insets left="50.0" />
-                           </HBox.margin>
-                        </Label>
-                     </children>
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                     <effect>
-                        <Blend />
-                     </effect>
-                     <padding>
-                        <Insets left="30.0" />
-                     </padding>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="211.0" styleClass="myElement">
-                     <children>
-                        <ImageView fitHeight="25.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../assets/images/cashless-payment.png" />
-                           </image>
-                           <HBox.margin>
-                              <Insets right="10.0" />
-                           </HBox.margin>
-                        </ImageView>
-                        <Label text="Payment">
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                        </Label>
-                     </children>
-                     <padding>
-                        <Insets left="30.0" />
-                     </padding>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="211.0" styleClass="myElement">
-                     <children>
-                        <ImageView fitHeight="25.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../assets/images/file.png" />
-                           </image>
-                           <HBox.margin>
-                              <Insets right="10.0" />
-                           </HBox.margin>
-                        </ImageView>
-                        <Label text="History" />
+                        <Label text="Create new item" />
                      </children>
                      <padding>
                         <Insets left="30.0" />

@@ -8,14 +8,17 @@ import controller.BaseController;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import views.screen.admin.AdminScreenHandler;
 import views.screen.home.HomeScreenHandler;
 
 public class BaseScreenHandler extends FXMLScreenHandler {
 
 	private Scene scene;
-	private BaseScreenHandler prev;
+	private String cssPath;
+	protected BaseScreenHandler prev;
 	protected final Stage stage;
 	protected HomeScreenHandler homeScreenHandler;
+	protected AdminScreenHandler adminScreenHandler;
 	protected Hashtable<String, String> messages;
 	private BaseController bController;
 
@@ -23,6 +26,8 @@ public class BaseScreenHandler extends FXMLScreenHandler {
 		super(screenPath);
 		this.stage = new Stage();
 	}
+
+	
 
 	public void setPreviousScreen(BaseScreenHandler prev) {
 		this.prev = prev;
@@ -36,10 +41,18 @@ public class BaseScreenHandler extends FXMLScreenHandler {
 		super(screenPath);
 		this.stage = stage;
 	}
+	public BaseScreenHandler(Stage stage, String screenPath,String cssPath) throws IOException {
+		super(screenPath);
+		this.cssPath = cssPath;
+		this.stage = stage;
+	}
 
 	public void show() {
 		if (this.scene == null) {
 			this.scene = new Scene(this.content);
+		}
+		if(cssPath!= null) {
+			this.scene.getStylesheets().add(getClass().getResource("cssPath").toExternalForm());
 		}
 		this.stage.setScene(this.scene);
 		this.stage.show();
@@ -64,5 +77,7 @@ public class BaseScreenHandler extends FXMLScreenHandler {
 	public void setHomeScreenHandler(HomeScreenHandler HomeScreenHandler) {
 		this.homeScreenHandler = HomeScreenHandler;
 	}
-
+	public void setAdminScreenHanler(AdminScreenHandler adminScreen) {
+		this.adminScreenHandler = adminScreen;
+	}
 }

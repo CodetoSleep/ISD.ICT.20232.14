@@ -16,10 +16,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import utils.Configs;
 import utils.Utils;
 import views.screen.FXMLScreenHandler;
@@ -39,10 +41,19 @@ public class MediaHandler extends FXMLScreenHandler {
 
 	@FXML
 	protected Label labelOutOfStock;
+	
+	@FXML
+	protected ImageView availabilityCheckmark;
 
 	@FXML
-	protected VBox spinnerFX;
-
+	protected HBox spinnerFX2;
+	
+	@FXML
+	protected Button decreaseMediaCart;
+	
+	@FXML
+	protected Button increaseMediaCart;
+	
 	@FXML
 	protected Label title;
 
@@ -53,16 +64,26 @@ public class MediaHandler extends FXMLScreenHandler {
 	protected Label currency;
 
 	@FXML
-	protected Button btnDelete;
+	protected ImageView btnDelete;
 
 	private CartMedia cartMedia;
-	private Spinner<Integer> spinner;
+
+	private TextField spinner2;
+	private Image greentick;
+	private Image redtick;
 	private CartScreenHandler cartScreen;
 
 	public MediaHandler(String screenPath, CartScreenHandler cartScreen) throws IOException {
 		super(screenPath);
 		this.cartScreen = cartScreen;
 		hboxMedia.setAlignment(Pos.CENTER);
+		
+		//set tick images
+		File file = new File("assets/images/tickerror.png");
+        this.redtick = new Image(file.toURI().toString());
+        file = new File("assets/images/tickgreen.png");
+        this.greentick = new Image(file.toURI().toString());
+        
 	}
 	
 	public void setCartMedia(CartMedia cartMedia) {
@@ -81,7 +102,7 @@ public class MediaHandler extends FXMLScreenHandler {
 		image.setFitWidth(92);
 
 		// add delete button
-		btnDelete.setFont(Configs.REGULAR_FONT);
+		//btnDelete.setFont(Configs.REGULAR_FONT);
 		btnDelete.setOnMouseClicked(e -> {
 			try {
 				Cart.getCart().removeCartMedia(cartMedia); // update user cart
@@ -92,41 +113,61 @@ public class MediaHandler extends FXMLScreenHandler {
 				throw new ViewCartException();
 			}
 		});
-
-		initializeSpinner();
+		initializeSpinner2();
 	}
 
-	private void initializeSpinner(){
-		SpinnerValueFactory<Integer> valueFactory = //
-			new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 100, cartMedia.getQuantity());
-		spinner = new Spinner<Integer>(valueFactory);
-		spinner.setOnMouseClicked( e -> {
-			try {
-				int numOfProd = this.spinner.getValue();
-				int remainQuantity = cartMedia.getMedia().getQuantity();
-				LOGGER.info("NumOfProd: " + numOfProd + " -- remainOfProd: " + remainQuantity);
-				if (numOfProd > remainQuantity){
-					LOGGER.info("product " + cartMedia.getMedia().getTitle() + " only remains " + remainQuantity + " (required " + numOfProd + ")");
-					labelOutOfStock.setText("Sorry, Only " + remainQuantity + " remain in stock");
-					spinner.getValueFactory().setValue(remainQuantity);
-					numOfProd = remainQuantity;
-				}
-
-				// update quantity of mediaCart in useCart
-				cartMedia.setQuantity(numOfProd);
-
-				// update the total of mediaCart
-				price.setText(Utils.getCurrencyFormat(numOfProd*cartMedia.getPrice()));
-
-				// update subtotal and amount of Cart
-				cartScreen.updateCartAmount();
-
-			} catch (SQLException e1) {
-				throw new MediaUpdateException(Arrays.toString(e1.getStackTrace()).replaceAll(", ", "\n"));
-			}
-			
+	
+	private void initializeSpinner2(){
+		spinner2= new TextField();
+		spinner2.setText(String.valueOf(cartMedia.getQuantity()));
+		this.increaseMediaCart.setOnMouseClicked(e ->{
+			int numOfProd = Integer.parseInt(spinner2.getText());
+			numOfProd++;
+			spinner2.setText(String.valueOf(numOfProd));
+			updateSpinner(spinner2);
 		});
-		spinnerFX.setAlignment(Pos.CENTER);
-		spinnerFX.getChildren().add(this.spinner);
+		this.decreaseMediaCart.setOnMouseClicked(e ->{
+			int numOfProd = Integer.parseInt(spinner2.getText());
+			numOfProd--;
+			if(numOfProd >=0){
+				spinner2.setText(String.valueOf(numOfProd));
+				updateSpinner(spinner2);
+			}
+		});
+		spinnerFX2.getChildren().add(1,this.spinner2);
+		
+	}
+	private void updateSpinner(TextField spinner) {
+		try {
+			int numOfProd = Integer.parseInt(spinner.getText());
+			int remainQuantity = cartMedia.getMedia().getQuantity();
+			LOGGER.info("NumOfProd: " + numOfProd + " -- remainOfProd: " + remainQuantity);
+			if (numOfProd > remainQuantity){
+				LOGGER.info("product " + cartMedia.getMedia().getTitle() + " only remains " + remainQuantity + " (required " + numOfProd + ")");
+				labelOutOfStock.setText("Sorry, Only " + remainQuantity + " remain in stock");
+				availabilityCheckmark.setImage(redtick);
+				labelOutOfStock.setTextFill(Color.RED);
+				spinner.setText(String.valueOf(remainQuantity));
+				numOfProd = remainQuantity;
+			}
+			if(numOfProd<remainQuantity) {
+				availabilityCheckmark.setImage(greentick);
+				//labelOutOfStock.setText(remainQuantity + " remain in stock");
+				labelOutOfStock.setTextFill(Color.GREEN);
+			}
+
+			// update quantity of mediaCart in useCart
+			cartMedia.setQuantity(numOfProd);
+
+			// update the total of mediaCart
+			price.setText(Utils.getCurrencyFormat(numOfProd*cartMedia.getPrice()));
+
+			// update subtotal and amount of Cart
+			cartScreen.updateCartAmount();
+		}
+		catch (SQLException e1) {
+			throw new MediaUpdateException(Arrays.toString(e1.getStackTrace()).replaceAll(", ", "\n"));
+		}
+	
 	}
 }

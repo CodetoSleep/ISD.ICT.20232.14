@@ -8,6 +8,44 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="lib" level="project" />
+    <orderEntry type="library" exported="" name="lib1" level="project" />
+    <orderEntry type="library" exported="" name="lib" level="project" />
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/sqlite-jdbc-3.7.2.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/lib/sqlite-jdbc-3.7.2.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/win/javafx-sdk-15/lib/javafx-swt.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/win/javafx-sdk-15/lib/javafx.base.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/win/javafx-sdk-15/lib/javafx.controls.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/win/javafx-sdk-15/lib/javafx.fxml.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/win/javafx-sdk-15/lib/javafx.graphics.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/win/javafx-sdk-15/lib/javafx.media.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/win/javafx-sdk-15/lib/javafx.swing.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/win/javafx-sdk-15/lib/javafx.web.jar!/" />
+          <root url="file://$MODULE_DIR$" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/src" />
+          <root url="jar://$MODULE_DIR$/lib/win/javafx-sdk-15/lib/src.zip!/javafx.base" />
+          <root url="jar://$MODULE_DIR$/lib/win/javafx-sdk-15/lib/src.zip!/javafx.controls" />
+          <root url="jar://$MODULE_DIR$/lib/win/javafx-sdk-15/lib/src.zip!/javafx.fxml" />
+          <root url="jar://$MODULE_DIR$/lib/win/javafx-sdk-15/lib/src.zip!/javafx.graphics" />
+          <root url="jar://$MODULE_DIR$/lib/win/javafx-sdk-15/lib/src.zip!/javafx.media" />
+          <root url="jar://$MODULE_DIR$/lib/win/javafx-sdk-15/lib/src.zip!/javafx.swing" />
+          <root url="jar://$MODULE_DIR$/lib/win/javafx-sdk-15/lib/src.zip!/javafx.web" />
+        </SOURCES>
+      </library>
+    </orderEntry>
   </component>
 </module>
