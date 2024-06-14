@@ -1,4 +1,4 @@
-package views.screen.admin;
+package views.screen.productmanager;
 
 import java.io.File;
 import java.io.IOException;
@@ -41,15 +41,21 @@ import views.screen.cart.CartScreenHandler;
 import views.screen.login.LoginScreenHandler;
 
 
-public class AdminScreenHandler extends BaseScreenHandler implements Initializable{
+public class EditProductScreenHandler extends BaseScreenHandler implements Initializable{
 
-    public static Logger LOGGER = Utils.getLogger(AdminScreenHandler.class.getName());
+    public static Logger LOGGER = Utils.getLogger(EditProductScreenHandler.class.getName());
 
     @FXML
     private Label numMediaInCart;
 
     @FXML
-    private ImageView aimsImage;
+    private HBox homeScreen;
+    
+    @FXML
+    private HBox editMediaScreen;
+    
+    @FXML
+    private HBox createNewMedia;
 
     @FXML
     private ImageView adminLogin;
@@ -91,7 +97,7 @@ public class AdminScreenHandler extends BaseScreenHandler implements Initializab
     private int currentPage = 0;
     private List currentFilteredItems;
 
-    public AdminScreenHandler(Stage stage, String screenPath) throws IOException{
+    public EditProductScreenHandler(Stage stage, String screenPath) throws IOException{
         super(stage, screenPath);
     }
 
@@ -118,13 +124,23 @@ public class AdminScreenHandler extends BaseScreenHandler implements Initializab
             e.printStackTrace();
         }
             
-        aimsImage.setOnMouseClicked(e -> {
+        editMediaScreen.setOnMouseClicked(e -> {
         	currentPage = 0;
         	currentFilteredItems = homeItems;
         	sortByCategory.getSelectionModel().select(0);
             addMediaHome(this.homeItems);
         });
         
+        homeScreen.setOnMouseClicked(e->{
+        	this.homeScreenHandler.show();
+        });
+        createNewMedia.setOnMouseClicked(e->{
+        	try {
+				ProductEditHandler.createProduct();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+        });
         
         adminLogin.setOnMouseClicked(e->{
         	LoginScreenHandler loginScreen;
@@ -165,12 +181,6 @@ public class AdminScreenHandler extends BaseScreenHandler implements Initializab
         currentFilteredItems = homeItems;
     }
 
-    public void setImage(){
-        // fix image path caused by fxml
-        File file1 = new File(Configs.IMAGE_PATH + "/" + "Logo2.png");
-        Image img1 = new Image(file1.toURI().toString());
-        aimsImage.setImage(img1);
-    }
 
     public void addMediaHome(List items){
         ArrayList mediaItems = (ArrayList)((ArrayList) items).clone();

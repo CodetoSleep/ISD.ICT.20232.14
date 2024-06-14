@@ -73,6 +73,7 @@ public class ShippingScreenHandler extends BaseScreenHandler implements Initiali
 		messages.put("address", address.getText());
 		messages.put("instructions", instructions.getText());
 		messages.put("province", province.getValue());
+		
 		try {
 			// process and validate delivery info
 			getBController().processDeliveryInfo(messages);
@@ -101,6 +102,10 @@ public class ShippingScreenHandler extends BaseScreenHandler implements Initiali
 
 	public void notifyError(){
 		// TODO: implement later on if we need
+	}
+	@FXML 
+	void goBack(MouseEvent event) {
+		prev.show();
 	}
 
 }

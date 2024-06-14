@@ -98,5 +98,9 @@ public class InvoiceScreenHandler extends BaseScreenHandler {
 		paymentScreen.show();
 		LOGGER.info("Confirmed invoice");
 	}
+	@FXML 
+	void goBack() {
+		prev.show();
+	}
 
 }

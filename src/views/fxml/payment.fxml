@@ -89,7 +89,7 @@
             <Insets left="20.0" right="10.0" top="20.0" />
          </padding>
       </VBox>
-      <Button fx:id="btnConfirmPayment" alignment="CENTER" contentDisplay="CENTER" layoutX="655.0" layoutY="692.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="170.0" style="-fx-cursor: hand;" styleClass="btnContinue" text="Continue" textFill="WHITE">
+      <Button fx:id="btnConfirmPayment" alignment="CENTER" contentDisplay="CENTER" layoutX="655.0" layoutY="692.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="170.0" style="-fx-cursor: hand; -fx-background-color: black;" text="Continue" textFill="WHITE">
          <font>
             <Font name="Segoe UI Bold" size="24.0" />
          </font>
@@ -100,7 +100,7 @@
             <Font name="Segoe UI Bold" size="24.0" />
          </font>
       </Label>
-      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="476.0" layoutY="692.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="145.0" style="-fx-cursor: hand;" text="Cancel" textFill="#5091e6">
+      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="476.0" layoutY="692.0" mnemonicParsing="false" onMouseClicked="#goBack" prefHeight="46.0" prefWidth="145.0" style="-fx-cursor: hand; -fx-background-color: red;" text="Cancel" textFill="WHITE">
          <font>
             <Font name="Segoe UI Bold" size="24.0" />
          </font>

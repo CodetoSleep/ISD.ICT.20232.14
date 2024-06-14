@@ -134,12 +134,12 @@
             </Pane>
          </children>
       </GridPane>
-      <Button fx:id="btnConfirmDelivery" alignment="CENTER" contentDisplay="CENTER" layoutX="801.0" layoutY="608.0" mnemonicParsing="false" onMouseClicked="#submitDeliveryInfo" prefHeight="46.0" prefWidth="141.0" style="-fx-cursor: hand; -fx-background-color: red;" text="Cancel" textFill="WHITE">
+      <Button fx:id="goBack" alignment="CENTER" contentDisplay="CENTER" layoutX="801.0" layoutY="608.0" mnemonicParsing="false" onMouseClicked="#goBack" prefHeight="46.0" prefWidth="141.0" style="-fx-cursor: hand; -fx-background-color: red;" text="Cancel" textFill="WHITE">
          <font>
             <Font name="Segoe UI Bold" size="24.0" />
          </font>
       </Button>
-      <Button fx:id="btnConfirmDelivery1" alignment="CENTER" contentDisplay="CENTER" layoutX="982.0" layoutY="608.0" mnemonicParsing="false" onMouseClicked="#submitDeliveryInfo" prefHeight="46.0" prefWidth="218.0" style="-fx-cursor: hand; -fx-background-color: black;" text="Continue" textFill="WHITE">
+      <Button fx:id="btnConfirmDelivery" alignment="CENTER" contentDisplay="CENTER" layoutX="982.0" layoutY="608.0" mnemonicParsing="false" onMouseClicked="#submitDeliveryInfo" prefHeight="46.0" prefWidth="218.0" style="-fx-cursor: hand; -fx-background-color: black;" text="Continue" textFill="WHITE">
          <font>
             <Font name="Segoe UI Bold" size="24.0" />
          </font>

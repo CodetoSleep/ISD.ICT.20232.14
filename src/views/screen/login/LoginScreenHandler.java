@@ -9,7 +9,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import views.screen.BaseScreenHandler;
-import views.screen.admin.AdminScreenHandler;
+import views.screen.productmanager.EditProductScreenHandler;
 
 public class LoginScreenHandler extends BaseScreenHandler {
 	
@@ -42,7 +42,7 @@ public class LoginScreenHandler extends BaseScreenHandler {
 				homeScreenHandler.show();
 			}
 			if(username.getText().equals("") && password.getText().equals("")) {
-				this.adminScreenHandler.show();
+				this.editProductScreenHandler.show();
 			}
 			
 		});

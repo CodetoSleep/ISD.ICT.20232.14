@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.logging.Logger;
 
+import common.exception.MediaNotAvailableException;
 import common.exception.MediaUpdateException;
 import common.exception.ViewCartException;
 import entity.cart.Cart;

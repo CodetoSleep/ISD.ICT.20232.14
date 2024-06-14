@@ -37,9 +37,9 @@ import javafx.stage.Stage;
 import utils.Configs;
 import utils.Utils;
 import views.screen.BaseScreenHandler;
-import views.screen.admin.AdminScreenHandler;
 import views.screen.cart.CartScreenHandler;
 import views.screen.login.LoginScreenHandler;
+import views.screen.productmanager.EditProductScreenHandler;
 
 
 public class HomeScreenHandler extends BaseScreenHandler implements Initializable{
@@ -50,7 +50,7 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
     private Label numMediaInCart;
 
     @FXML
-    private ImageView aimsImage;
+    private HBox homeScreen;
 
     @FXML
     private ImageView adminLogin;
@@ -95,8 +95,8 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
     public HomeScreenHandler(Stage stage, String screenPath) throws IOException{
         super(stage, screenPath);
         try {
-			this.adminScreenHandler = new AdminScreenHandler(stage,"/views/fxml/admin.fxml");
-			this.adminScreenHandler.setHomeScreenHandler(this);
+			this.editProductScreenHandler = new EditProductScreenHandler(stage,"/views/fxml/admin.fxml");
+			this.editProductScreenHandler.setHomeScreenHandler(this);
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
@@ -119,24 +119,14 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         setBController(new HomeController());
-        try{
-            List medium = getBController().getAllMedia();
-            this.homeItems = new ArrayList<>();
-            for (Object object : medium) {
-                Media media = (Media)object;
-                MediaHandler m1 = new MediaHandler(Configs.HOME_MEDIA_PATH, media, this);
-                this.homeItems.add(m1);
-            }
-        }catch (SQLException | IOException e){
-            LOGGER.info("Errors occured: " + e.getMessage());
-            e.printStackTrace();
-        }
+        updateHomeItems();
             
-        aimsImage.setOnMouseClicked(e -> {
+        homeScreen.setOnMouseClicked(e -> {
+        	updateHomeItems();
         	currentPage = 0;
         	currentFilteredItems = homeItems;
         	sortByCategory.getSelectionModel().select(0);
-            addMediaHome(this.homeItems);
+            addMediaHome(homeItems);
         });
         
         viewCart.setOnMouseClicked(e -> {
@@ -157,7 +147,7 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
         	try {
         		loginScreen = new LoginScreenHandler(this.stage,"/views/fxml/login.fxml");
         		loginScreen.setHomeScreenHandler(this);
-        		loginScreen.setAdminScreenHanler(this.adminScreenHandler);
+        		loginScreen.setAdminScreenHanler(this.editProductScreenHandler);
         		loginScreen.show();
         	}
         	catch (IOException e1) {
@@ -191,13 +181,20 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
         currentFilteredItems = homeItems;
     }
 
-    public void setImage(){
-        // fix image path caused by fxml
-        File file1 = new File(Configs.IMAGE_PATH + "/" + "Logo2.png");
-        Image img1 = new Image(file1.toURI().toString());
-        aimsImage.setImage(img1);
+    private void updateHomeItems() {
+    	try{
+            List medium = getBController().getAllMedia();
+            this.homeItems = new ArrayList<>();
+            for (Object object : medium) {
+                Media media = (Media)object;
+                MediaHandler m1 = new MediaHandler(Configs.HOME_MEDIA_PATH, media, this);
+                this.homeItems.add(m1);
+            }
+        }catch (SQLException | IOException e1){
+            LOGGER.info("Errors occured: " + e1.getMessage());
+            e1.printStackTrace();
+        }
     }
-
     public void addMediaHome(List items){
         ArrayList mediaItems = (ArrayList)((ArrayList) items).clone();
         hboxMedia.getChildren().forEach(node -> {

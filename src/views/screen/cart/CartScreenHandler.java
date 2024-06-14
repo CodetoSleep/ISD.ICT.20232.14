@@ -18,6 +18,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import utils.Configs;
@@ -31,7 +32,7 @@ public class CartScreenHandler extends BaseScreenHandler {
 	private static Logger LOGGER = Utils.getLogger(CartScreenHandler.class.getName());
 
 	@FXML
-	private ImageView aimsImage;
+	private HBox homeScreen;
 
 	@FXML
 	private Label pageTitle;
@@ -60,13 +61,10 @@ public class CartScreenHandler extends BaseScreenHandler {
 	public CartScreenHandler(Stage stage, String screenPath) throws IOException {
 		super(stage, screenPath);
 
-		// fix relative image path caused by fxml
-		File file = new File("assets/images/Logo2.png");
-		Image im = new Image(file.toURI().toString());
-		aimsImage.setImage(im);
+		
 
 		// on mouse clicked, we back to home
-		aimsImage.setOnMouseClicked(e -> {
+		homeScreen.setOnMouseClicked(e -> {
 			homeScreenHandler.show();
 		});
 		homeBtn.setOnMouseClicked(e -> {

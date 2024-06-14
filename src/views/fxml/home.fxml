@@ -108,7 +108,7 @@
                <children>
                   <HBox layoutX="6.0" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <ImageView fx:id="aimsImage" fitHeight="109.0" fitWidth="102.0" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+                        <ImageView fitHeight="109.0" fitWidth="102.0" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
                            <image>
                               <Image url="@../../../assets/images/Logo2.png" />
                            </image>
@@ -127,7 +127,7 @@
             </Pane>
             <VBox layoutY="180.0" prefHeight="586.0" prefWidth="211.0">
                <children>
-                  <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="211.0" styleClass="myElement">
+                  <HBox fx:id="homeScreen" alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="211.0" styleClass="myElement">
                      <children>
                         <ImageView fitHeight="25.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -179,21 +179,17 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="211.0" styleClass="myElement">
+                  <HBox fx:id="productManagerScreen" alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="50.0" prefWidth="211.0" styleClass="myElement">
                      <children>
                         <ImageView fitHeight="25.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../assets/images/cashless-payment.png" />
+                              <Image url="@../../../assets/images/editmedia.png" />
                            </image>
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin>
                         </ImageView>
-                        <Label text="Payment">
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                        </Label>
+                        <Label text="Product Configuration" />
                      </children>
                      <padding>
                         <Insets left="30.0" />
@@ -202,17 +198,17 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="211.0" styleClass="myElement">
+                  <HBox fx:id="adminScreen" alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="50.0" prefWidth="211.0" styleClass="myElement">
                      <children>
                         <ImageView fitHeight="25.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../assets/images/file.png" />
+                              <Image url="@../../../assets/images/usericon.png" />
                            </image>
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin>
                         </ImageView>
-                        <Label text="History" />
+                        <Label text="Admin Configuration" />
                      </children>
                      <padding>
                         <Insets left="30.0" />

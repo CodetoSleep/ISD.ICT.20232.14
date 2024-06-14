@@ -223,7 +223,7 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="917.0" layoutY="677.0" mnemonicParsing="false" onMouseClicked="#confirmInvoice" prefHeight="46.0" prefWidth="141.0" style="-fx-cursor: hand; -fx-background-color: red;" text="Cancel" textFill="WHITE">
+      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="917.0" layoutY="677.0" mnemonicParsing="false" onMouseClicked="#goBack" prefHeight="46.0" prefWidth="141.0" style="-fx-cursor: hand; -fx-background-color: red;" text="Cancel" textFill="WHITE">
          <font>
             <Font name="Segoe UI Bold" size="24.0" />
          </font>

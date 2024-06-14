@@ -74,5 +74,9 @@ public class PaymentScreenHandler extends BaseScreenHandler {
 		resultScreen.setScreenTitle("Result Screen");
 		resultScreen.show();
 	}
+	@FXML 
+	void goBack() {
+		prev.show();
+	}
 
 }

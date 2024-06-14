@@ -8,8 +8,8 @@ import controller.BaseController;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import views.screen.admin.AdminScreenHandler;
 import views.screen.home.HomeScreenHandler;
+import views.screen.productmanager.EditProductScreenHandler;
 
 public class BaseScreenHandler extends FXMLScreenHandler {
 
@@ -18,7 +18,7 @@ public class BaseScreenHandler extends FXMLScreenHandler {
 	protected BaseScreenHandler prev;
 	protected final Stage stage;
 	protected HomeScreenHandler homeScreenHandler;
-	protected AdminScreenHandler adminScreenHandler;
+	protected EditProductScreenHandler editProductScreenHandler;
 	protected Hashtable<String, String> messages;
 	private BaseController bController;
 
@@ -77,7 +77,7 @@ public class BaseScreenHandler extends FXMLScreenHandler {
 	public void setHomeScreenHandler(HomeScreenHandler HomeScreenHandler) {
 		this.homeScreenHandler = HomeScreenHandler;
 	}
-	public void setAdminScreenHanler(AdminScreenHandler adminScreen) {
-		this.adminScreenHandler = adminScreen;
+	public void setAdminScreenHanler(EditProductScreenHandler adminScreen) {
+		this.editProductScreenHandler = adminScreen;
 	}
 }

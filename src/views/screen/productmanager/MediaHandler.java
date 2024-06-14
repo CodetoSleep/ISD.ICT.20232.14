@@ -1,4 +1,4 @@
-package views.screen.admin;
+package views.screen.productmanager;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,22 +29,25 @@ import views.screen.popup.PopupScreen;
 public class MediaHandler extends FXMLScreenHandler{
 
 	@FXML
-	private TextField mediaTitle;
+	private Label mediaTitle;
 	@FXML
-	private TextField mediaPrice;
+	private Label mediaPrice;
 	@FXML
-	private Spinner mediaQuantity;
+	private Label mediaQuantity;
 	@FXML
 	private ImageView mediaImage;
+	
+	@FXML
+	private ImageView editMedia;
 	
 	@FXML
 	private Button deleteMedia;
 
     private static Logger LOGGER = Utils.getLogger(MediaHandler.class.getName());
     private Media media;
-    private AdminScreenHandler home;
+    private EditProductScreenHandler home;
     private Timeline holdTimeline;
-    public MediaHandler(String screenPath, Media media, AdminScreenHandler home) throws SQLException, IOException{
+    public MediaHandler(String screenPath, Media media, EditProductScreenHandler home) throws SQLException, IOException{
         super(screenPath);
         this.media = media;
         this.home = home;
@@ -61,6 +64,15 @@ public class MediaHandler extends FXMLScreenHandler{
         deleteMedia.setOnMouseReleased(e->{
         	if(holdTimeline!=null)holdTimeline.stop();
         });
+        
+        editMedia.setOnMouseClicked(e->{
+        	try {
+				ProductEditHandler.editProduct(this.media);
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+        });
+        
         
         
     }
@@ -79,10 +91,8 @@ public class MediaHandler extends FXMLScreenHandler{
 
         mediaTitle.setText(media.getTitle());
         mediaPrice.setText(Utils.getCurrencyFormat(media.getPrice()));
-        mediaQuantity.setValueFactory(
-            new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100, media.getQuantity())
-        );
-
+       
+        mediaQuantity.setText(String.valueOf(media.getQuantity()));
         setImage(mediaImage, media.getImageURL());
         
         
