@@ -6,6 +6,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Logger;
 
+import common.exception.InsufficientInputException;
+import common.exception.MissingCredentialsException;
+import common.exception.UsernameAlreadyExistsException;
 import entity.db.AIMSDB;
 import entity.user.User;
 import entity.user.UserRole;
@@ -14,9 +17,18 @@ public class LoginController extends BaseController {
     private static Logger LOGGER = Logger.getLogger(LoginController.class.getName());
 
 // login
- // login
     public User login(String username, String password) throws SQLException {
-        String query = "SELECT * FROM User u JOIN UserRoles ur ON u.userId = ur.userId JOIN Roles r ON ur.roleId = r.roleId WHERE username = ? AND password = ?";
+        if (username.isEmpty() || password.isEmpty()) {
+            throw new MissingCredentialsException();
+        }
+
+        String query = "SELECT u.userId, u.username, u.password, r.roleName " +
+                "FROM User u " +
+                "JOIN UserRoles ur ON u.userId = ur.userId " +
+                "JOIN Roles r ON ur.roleId = r.roleId " +
+                "WHERE u.username = ? AND u.password = ?";
+
+
         try (PreparedStatement statement = AIMSDB.getConnection().prepareStatement(query)) {
             statement.setString(1, username);
             statement.setString(2, password);
@@ -32,8 +44,6 @@ public class LoginController extends BaseController {
         }
         return null;
     }
-
-
 
 //Check if the user name exists or not
     public boolean isUsernameAvailable(String username) throws SQLException {
@@ -55,6 +65,15 @@ public class LoginController extends BaseController {
 
 // register
     public void registerUser(User user) throws SQLException {
+        if (user.getUsername().isEmpty() || user.getPassword().isEmpty()) {
+            throw new InsufficientInputException();
+        }
+        
+        if (!isUsernameAvailable(user.getUsername())) {
+            throw new UsernameAlreadyExistsException();
+        }
+
+        // Tiếp tục xử lý đăng ký nếu không có exception nào được ném.
         String query = "INSERT INTO User (username, password) VALUES (?, ?)";
         try (PreparedStatement statement = AIMSDB.getConnection().prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, user.getUsername());
@@ -70,7 +89,8 @@ public class LoginController extends BaseController {
             }
         }
     }
-// auto role user
+
+// auto role = user for new account
     private void assignRole(int userId, String roleName) throws SQLException {
         // Get the roleId for the given roleName
         String roleQuery = "SELECT roleId FROM Roles WHERE roleName = ?";

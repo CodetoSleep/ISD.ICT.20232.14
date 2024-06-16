@@ -157,10 +157,14 @@ public class App {
         System.out.print("Enter new password: ");
         String password = scanner.nextLine();
 
+        System.out.print("Enter new role (user/manager): ");
+        String role = scanner.nextLine();
+
         User user = new User(userId, username, password);
-        userController.updateUser(user);
+        userController.updateUser(user, role);
         System.out.println("User updated successfully!");
     }
+
 
     private static void deleteUser(Scanner scanner, UserController userController) throws SQLException {
         System.out.println("Delete user");

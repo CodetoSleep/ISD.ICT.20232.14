@@ -10,6 +10,7 @@ import java.util.List;
 import entity.db.AIMSDB;
 import entity.user.User;
 
+// get list user 
 public class UserController {
 	public List<User> getAllUsersWithRoles() throws SQLException {
         List<User> users = new ArrayList<>();
@@ -32,17 +33,46 @@ public class UserController {
         return users;
     }
 
-    // Phương thức cập nhật người dùng hiện tại
-    public void updateUser(User user) throws SQLException {
-        String query = "UPDATE User SET username = ?, password = ? WHERE userId = ?";
-        try (Connection connection = AIMSDB.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setString(1, user.getUsername());
-            statement.setString(2, user.getPassword());
-            statement.setInt(3, user.getUserId());
-            statement.executeUpdate();
-        }
-    }
+	public void updateUser(User user, String newRole) throws SQLException {
+	    String updateUserQuery = "UPDATE User SET username = ?, password = ? WHERE userId = ?";
+	    String updateUserRoleQuery = "UPDATE UserRoles SET roleId = ? WHERE userId = ?";
+	    
+	    int roleId;
+	    switch (newRole.toLowerCase()) {
+	        case "user":
+	            roleId = 1; // roleId tương ứng với user trong cơ sở dữ liệu
+	            break;
+	        case "manager":
+	            roleId = 3; // roleId tương ứng với manager trong cơ sở dữ liệu
+	            break;
+	        default:
+	            throw new IllegalArgumentException("Invalid role. Role must be either 'user' or 'manager'.");
+	    }
+
+	    try (Connection connection = AIMSDB.getConnection();
+	         PreparedStatement updateUserStatement = connection.prepareStatement(updateUserQuery);
+	         PreparedStatement updateUserRoleStatement = connection.prepareStatement(updateUserRoleQuery)) {
+	        connection.setAutoCommit(false);
+
+	        // Cập nhật thông tin người dùng
+	        updateUserStatement.setString(1, user.getUsername());
+	        updateUserStatement.setString(2, user.getPassword());
+	        updateUserStatement.setInt(3, user.getUserId());
+	        updateUserStatement.executeUpdate();
+
+	        // Cập nhật vai trò của người dùng
+	        updateUserRoleStatement.setInt(1, roleId);
+	        updateUserRoleStatement.setInt(2, user.getUserId());
+	        updateUserRoleStatement.executeUpdate();
+
+	        connection.commit();
+	    } catch (SQLException e) {
+	        throw e;
+	    }
+	}
+
+
+
 
     // Phương thức xóa vai trò của người dùng
     public void deleteUser(int userId) throws SQLException {
@@ -75,16 +105,8 @@ public class UserController {
         }
     }
 
-    // Phương thức thêm người dùng mới
-    public void createUser(User user) throws SQLException {
-        String query = "INSERT INTO User (username, password) VALUES (?, ?)";
-        try (Connection connection = AIMSDB.getConnection();
-             PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setString(1, user.getUsername());
-            statement.setString(2, user.getPassword());
-            statement.executeUpdate();
-        }
-    }
+    // Phương thức thêm người dùng mới giống register
+
 
     // Phương thức lấy thông tin người dùng theo ID
     public User getUserById(int userId) throws SQLException {
@@ -103,9 +125,10 @@ public class UserController {
                     String roleName = resultSet.getString("roleName");
                     return new User(userId, username, password, roleName);
                 } else {
-                    return null; // Không tìm thấy người dùng với ID tương ứng
+                    return null;
                 }
             }
         }
     }
+    
 }
