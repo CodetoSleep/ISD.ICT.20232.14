@@ -1,12 +1,19 @@
 package entity.order;
 
 import entity.media.Media;
+import utils.Utils;
+
+import java.sql.Statement;
+import java.util.logging.Logger;
 
 public class OrderMedia {
     
     private Media media;
     private int price;
     private int quantity;
+    private static Logger LOGGER = Utils.getLogger(Media.class.getName());
+
+    protected Statement stm;
 
     public OrderMedia(Media media, int quantity, int price) {
         this.media = media;
