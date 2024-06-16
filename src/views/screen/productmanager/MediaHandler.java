@@ -68,7 +68,7 @@ public class MediaHandler extends FXMLScreenHandler{
         editMedia.setOnMouseClicked(e->{
         	try {
 				ProductEditHandler.editProduct(this.media);
-			} catch (IOException e1) {
+			} catch (IOException | SQLException e1) {
 				e1.printStackTrace();
 			}
         });

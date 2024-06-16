@@ -5,6 +5,7 @@ import java.util.Hashtable;
 import java.util.List;
 
 import controller.BaseController;
+import entity.user.User;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -21,7 +22,8 @@ public class BaseScreenHandler extends FXMLScreenHandler {
 	protected EditProductScreenHandler editProductScreenHandler;
 	protected Hashtable<String, String> messages;
 	private BaseController bController;
-
+	static protected User user;
+   
 	private BaseScreenHandler(String screenPath) throws IOException {
 		super(screenPath);
 		this.stage = new Stage();

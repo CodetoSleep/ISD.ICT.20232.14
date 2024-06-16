@@ -51,9 +51,6 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
 
     @FXML
     private HBox homeScreen;
-
-    @FXML
-    private ImageView adminLogin;
     
     @FXML
     private HBox viewCart;
@@ -85,6 +82,12 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
     
     @FXML
     private ChoiceBox sortByCategory;
+    
+    @FXML
+    private Label welcomeText;
+    
+    @FXML
+    private Label logIn;
 
     private List homeItems;
     
@@ -119,10 +122,10 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         setBController(new HomeController());
-        updateHomeItems();
+        updateHome();
             
         homeScreen.setOnMouseClicked(e -> {
-        	updateHomeItems();
+        	updateHome();
         	currentPage = 0;
         	currentFilteredItems = homeItems;
         	sortByCategory.getSelectionModel().select(0);
@@ -142,12 +145,13 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
             }
         });
         
-        adminLogin.setOnMouseClicked(e->{
+        logIn.setOnMouseClicked(e->{
         	LoginScreenHandler loginScreen;
         	try {
         		loginScreen = new LoginScreenHandler(this.stage,"/views/fxml/login.fxml");
         		loginScreen.setHomeScreenHandler(this);
         		loginScreen.setAdminScreenHanler(this.editProductScreenHandler);
+        		if(user!=null)user=null;
         		loginScreen.show();
         	}
         	catch (IOException e1) {
@@ -177,11 +181,21 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
         	addMediaHome(currentFilteredItems);
         });
         
+        
+        
         addMediaHome(this.homeItems);
         currentFilteredItems = homeItems;
     }
 
-    private void updateHomeItems() {
+    public void updateHome() {
+    	if(user!=null) {
+    		welcomeText.setText("Welcome, " + user.getUsername());
+    		logIn.setText("Sign out");
+    	}
+    	else {
+    		welcomeText.setText("");
+    		logIn.setText("Sign In");
+    	}
     	try{
             List medium = getBController().getAllMedia();
             this.homeItems = new ArrayList<>();

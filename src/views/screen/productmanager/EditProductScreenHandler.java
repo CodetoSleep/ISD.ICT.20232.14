@@ -111,20 +111,10 @@ public class EditProductScreenHandler extends BaseScreenHandler implements Initi
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         setBController(new HomeController());
-        try{
-            List medium = getBController().getAllMedia();
-            this.homeItems = new ArrayList<>();
-            for (Object object : medium) {
-                Media media = (Media)object;
-                MediaHandler m1 = new MediaHandler("/views/fxml/media_admin.fxml", media, this);
-                this.homeItems.add(m1);
-            }
-        }catch (SQLException | IOException e){
-            LOGGER.info("Errors occured: " + e.getMessage());
-            e.printStackTrace();
-        }
+        updateHomeItems();
             
         editMediaScreen.setOnMouseClicked(e -> {
+        	updateHomeItems();
         	currentPage = 0;
         	currentFilteredItems = homeItems;
         	sortByCategory.getSelectionModel().select(0);
@@ -179,6 +169,20 @@ public class EditProductScreenHandler extends BaseScreenHandler implements Initi
         
         addMediaHome(this.homeItems);
         currentFilteredItems = homeItems;
+    }
+    public void updateHomeItems() {
+    	try{
+            List medium = getBController().getAllMedia();
+            this.homeItems = new ArrayList<>();
+            for (Object object : medium) {
+                Media media = (Media)object;
+                MediaHandler m1 = new MediaHandler("/views/fxml/media_admin.fxml", media, this);
+                this.homeItems.add(m1);
+            }
+        }catch (SQLException | IOException e){
+            LOGGER.info("Errors occured: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
 
