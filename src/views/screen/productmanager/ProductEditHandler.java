@@ -50,6 +50,10 @@ public class ProductEditHandler extends BaseScreenHandler{
 	
 	@FXML
 	private ImageView image;
+	
+	@FXML
+	private Button editImage;
+	
     
     
     public ProductEditHandler(Stage stage) throws IOException{
@@ -60,19 +64,18 @@ public class ProductEditHandler extends BaseScreenHandler{
         ObservableList<String> options = FXCollections.observableArrayList("cd", "dvd", "book");
         type.setItems(options);
         type.getSelectionModel().select(0);
+        
+        
     }
     public ProductEditHandler(Stage stage, Media media) throws IOException, SQLException{
-        super(stage, "/views/fxml/editmedia.fxml");
-        publishProduct.setOnMouseClicked(e->{
-        	stage.close();
-        });
-        ObservableList<String> options = FXCollections.observableArrayList( "cd", "dvd", "book");
-        type.setItems(options);
+        this(stage);
+        
         
         title.setText(media.getTitle());
         quantity.setText(String.valueOf(media.getQuantity()));
         category.setText(media.getCategory());
         sellingPrice.setText(String.valueOf(media.getPrice()));
+        ObservableList<String> options = FXCollections.observableArrayList("cd", "dvd", "book");
         type.getSelectionModel().select(options.indexOf(media.getType()));
         rushOrder.setSelected(media.getRushOrder()>0);
         File file = new File(media.getImageURL());
@@ -93,6 +96,10 @@ public class ProductEditHandler extends BaseScreenHandler{
     	ProductEditHandler popup = new ProductEditHandler(new Stage());
         //popup.stage.initStyle(StageStyle.UNDECORATED);
         popup.show();
+    }
+    
+    private void submitProduct() {
+    	
     }
 
 

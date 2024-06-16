@@ -1,22 +1,16 @@
-package views.screen.productmanager;
+package views.screen.admin;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
 
-import common.exception.ViewCartException;
-import controller.BaseController;
-import controller.HomeController;
-import controller.ViewCartController;
-import entity.cart.Cart;
-import entity.media.Media;
+import controller.UserController;
+
+import entity.user.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -24,38 +18,29 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.SplitMenuButton;
+
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.TextAlignment;
+
 import javafx.stage.Stage;
-import utils.Configs;
+
 import utils.Utils;
 import views.screen.BaseScreenHandler;
-import views.screen.cart.CartScreenHandler;
+
 import views.screen.login.LoginScreenHandler;
 
 
-public class EditProductScreenHandler extends BaseScreenHandler implements Initializable{
+public class AdminScreenHandler extends BaseScreenHandler implements Initializable{
 
-    public static Logger LOGGER = Utils.getLogger(EditProductScreenHandler.class.getName());
-
-    @FXML
-    private Label numMediaInCart;
+    public static Logger LOGGER = Utils.getLogger(AdminScreenHandler.class.getName());
 
     @FXML
     private HBox homeScreen;
     
     @FXML
-    private HBox editMediaScreen;
-    
-    @FXML
-    private HBox createNewMedia;
+    private HBox editUser;
 
     @FXML
     private VBox vboxMedia1;
@@ -96,40 +81,26 @@ public class EditProductScreenHandler extends BaseScreenHandler implements Initi
     
     private int currentPage = 0;
     private List currentFilteredItems;
+    private UserController controller ;
 
-    public EditProductScreenHandler(Stage stage, String screenPath) throws IOException{
+    public AdminScreenHandler(Stage stage, String screenPath) throws IOException{
         super(stage, screenPath);
-    }
-
-    public Label getNumMediaCartLabel(){
-        return this.numMediaInCart;
-    }
-
-    public HomeController getBController() {
-        return (HomeController) super.getBController();
     }
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        setBController(new HomeController());
+    	controller = new UserController();
         updateHomeItems();
-            
-        editMediaScreen.setOnMouseClicked(e -> {
-        	updateHomeItems();
+        
+        editUser.setOnMouseClicked(e -> {
         	currentPage = 0;
         	currentFilteredItems = homeItems;
         	sortByCategory.getSelectionModel().select(0);
             addMediaHome(this.homeItems);
+            updateHomeItems();
         });
         
         homeScreen.setOnMouseClicked(e->{
-        	this.homeScreenHandler.show();
-        });
-        createNewMedia.setOnMouseClicked(e->{
-        	try {
-				ProductEditHandler.createProduct();
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
+        	homeScreenHandler.show();
         });
         
         logIn.setOnMouseClicked(e->{
@@ -158,7 +129,7 @@ public class EditProductScreenHandler extends BaseScreenHandler implements Initi
         	moveItemPageForward(currentFilteredItems);
         });
         
-        ObservableList<String> options = FXCollections.observableArrayList("all", "cd", "dvd", "book");
+        ObservableList<String> options = FXCollections.observableArrayList("all", "user","manager");
         sortByCategory.setItems(options);
         sortByCategory.getSelectionModel().select(0);
         sortByCategory.setOnAction(e->{
@@ -183,14 +154,17 @@ public class EditProductScreenHandler extends BaseScreenHandler implements Initi
     public void updateHomeItems() {
     	updateAccount();
     	try{
-            List medium = getBController().getAllMedia();
+            //List medium = controller.getAllUsersWithRoles();
+    		List medium = new ArrayList<>();
+    		medium.add(new User());
+    		//remove this later and add sqlexception
             this.homeItems = new ArrayList<>();
             for (Object object : medium) {
-                Media media = (Media)object;
-                MediaHandler m1 = new MediaHandler("/views/fxml/media_manager.fxml", media, this);
+                User media = (User)object;
+                UserProfileScreenHandler m1 = new UserProfileScreenHandler(this.stage,"/views/fxml/useredit_admin.fxml", media);
                 this.homeItems.add(m1);
             }
-        }catch (SQLException | IOException e){
+        }catch (IOException e){
             LOGGER.info("Errors occured: " + e.getMessage());
             e.printStackTrace();
         }
@@ -208,7 +182,7 @@ public class EditProductScreenHandler extends BaseScreenHandler implements Initi
                 int vid = hboxMedia.getChildren().indexOf(node);
                 VBox vBox = (VBox) node;
                 while(vBox.getChildren().size()<3 && !mediaItems.isEmpty()){
-                    MediaHandler media = (MediaHandler) mediaItems.get(0);
+                	UserProfileScreenHandler media = (UserProfileScreenHandler) mediaItems.get(0);
                     vBox.getChildren().add(media.getContent());
                     mediaItems.remove(media);
                 }
@@ -221,8 +195,8 @@ public class EditProductScreenHandler extends BaseScreenHandler implements Initi
     	if(category.equals("all"))return items;
     	List filteredItems = new ArrayList<>();
     	items.forEach(me ->{
-    		MediaHandler media = (MediaHandler) me;
-        	if (media.getMedia().getType().toLowerCase().startsWith(category)){
+    		UserProfileScreenHandler media = (UserProfileScreenHandler) me;
+        	if (media.getUser().getRoleName().toLowerCase().startsWith(category)){
                  filteredItems.add(media);
         	}
     	});
@@ -232,8 +206,8 @@ public class EditProductScreenHandler extends BaseScreenHandler implements Initi
     private List searchItem(String keyWord, List itemList) {
     	List filteredItems = new ArrayList<>();
     	itemList.forEach(me->{
-    		MediaHandler media = (MediaHandler) me;
-    		if(media.getMedia().getTitle().toLowerCase().startsWith(keyWord.toLowerCase())){
+    		UserProfileScreenHandler media = (UserProfileScreenHandler) me;
+    		if(media.getUser().getUsername().toLowerCase().startsWith(keyWord.toLowerCase())){
     			filteredItems.add(media);
     		}
     	});

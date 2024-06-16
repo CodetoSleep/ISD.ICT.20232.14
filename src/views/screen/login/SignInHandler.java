@@ -3,6 +3,8 @@ package views.screen.login;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import common.exception.InsufficientInputException;
+import common.exception.UsernameAlreadyExistsException;
 import controller.LoginController;
 import entity.user.User;
 import javafx.fxml.FXML;
@@ -14,22 +16,22 @@ import views.screen.BaseScreenHandler;
 import views.screen.popup.PopupScreen;
 
 public class SignInHandler extends BaseScreenHandler{
-	
+
 	@FXML
 	private Button signIn;
-	
+
 	@FXML
 	private Button signUp;
-	
+
 	@FXML
 	private TextField username;
-	
+
 	@FXML
 	private PasswordField password1;
-	
+
 	@FXML
 	private PasswordField password2;
-	
+
 	private static LoginController controller;
 
 	public SignInHandler(Stage stage, String screenPath) throws IOException {
@@ -44,17 +46,23 @@ public class SignInHandler extends BaseScreenHandler{
 					PopupScreen.error("Both password must be the same");
 				}
 				else {
-					if(controller.isUsernameAvailable(username.getText())==false) {
-						PopupScreen.error("Username is already taken");
+					try {
+						controller.registerUser(new User(username.getText(),password1.getText()));
+						prev.show();
 					}
-					else {
-						//controller.registerUser(new User(username.getText(),password1.getText()));
+					catch(InsufficientInputException e1) {
+						PopupScreen.error("Invalid username or password");
 					}
+					catch(UsernameAlreadyExistsException e2) {
+						PopupScreen.error("Username already exist");
+					}
+
 				}
 			}
 			catch(SQLException | IOException e2) {
 				e2.printStackTrace();
 			}
+
 		});
 	}
 

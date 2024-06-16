@@ -9,6 +9,7 @@ import entity.user.User;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import views.screen.admin.AdminScreenHandler;
 import views.screen.home.HomeScreenHandler;
 import views.screen.productmanager.EditProductScreenHandler;
 
@@ -18,8 +19,9 @@ public class BaseScreenHandler extends FXMLScreenHandler {
 	private String cssPath;
 	protected BaseScreenHandler prev;
 	protected final Stage stage;
-	protected HomeScreenHandler homeScreenHandler;
-	protected EditProductScreenHandler editProductScreenHandler;
+	static protected HomeScreenHandler homeScreenHandler;
+	static protected EditProductScreenHandler editProductScreenHandler;
+	static protected AdminScreenHandler adminScreenHandler;
 	protected Hashtable<String, String> messages;
 	private BaseController bController;
 	static protected User user;
@@ -79,7 +81,22 @@ public class BaseScreenHandler extends FXMLScreenHandler {
 	public void setHomeScreenHandler(HomeScreenHandler HomeScreenHandler) {
 		this.homeScreenHandler = HomeScreenHandler;
 	}
-	public void setAdminScreenHanler(EditProductScreenHandler adminScreen) {
+	public void setManagerScreenHanler(EditProductScreenHandler adminScreen) {
 		this.editProductScreenHandler = adminScreen;
 	}
+	public void setAdminScreenHandler(AdminScreenHandler adminScreen) {
+		this.adminScreenHandler = adminScreen;
+	}
+	
+	public void updateAccountAll() {
+		homeScreenHandler.updateAccount();
+		editProductScreenHandler.updateAccount();
+		adminScreenHandler.updateAccount();
+	}
+	public void updateHomeItemsAll() {
+		homeScreenHandler.updateHome();
+		editProductScreenHandler.updateHomeItems();
+		adminScreenHandler.updateHomeItems();
+	}
+	
 }

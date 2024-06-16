@@ -37,8 +37,10 @@ import javafx.stage.Stage;
 import utils.Configs;
 import utils.Utils;
 import views.screen.BaseScreenHandler;
+import views.screen.admin.AdminScreenHandler;
 import views.screen.cart.CartScreenHandler;
 import views.screen.login.LoginScreenHandler;
+import views.screen.popup.PopupScreen;
 import views.screen.productmanager.EditProductScreenHandler;
 
 
@@ -88,6 +90,12 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
     
     @FXML
     private Label logIn;
+    
+    @FXML
+    private HBox productManagerScreen;
+    
+    @FXML
+    private HBox adminScreen;
 
     private List homeItems;
     
@@ -98,8 +106,9 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
     public HomeScreenHandler(Stage stage, String screenPath) throws IOException{
         super(stage, screenPath);
         try {
-			this.editProductScreenHandler = new EditProductScreenHandler(stage,"/views/fxml/admin.fxml");
+			this.editProductScreenHandler = new EditProductScreenHandler(stage,"/views/fxml/productmanager.fxml");
 			this.editProductScreenHandler.setHomeScreenHandler(this);
+			setAdminScreenHandler(new AdminScreenHandler(stage,"/views/fxml/admin.fxml"));
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
@@ -150,14 +159,29 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
         	try {
         		loginScreen = new LoginScreenHandler(this.stage,"/views/fxml/login.fxml");
         		loginScreen.setHomeScreenHandler(this);
-        		loginScreen.setAdminScreenHanler(this.editProductScreenHandler);
+        		loginScreen.setManagerScreenHanler(this.editProductScreenHandler);
         		if(user!=null)user=null;
+        		updateAccountAll();
         		loginScreen.show();
         	}
         	catch (IOException e1) {
         		e1.printStackTrace();
         	}
         	
+        });
+        productManagerScreen.setOnMouseClicked(e->{
+        	if(user!=null&&user.getRoleName().equals("manager"))editProductScreenHandler.show();
+			else
+				try {
+					PopupScreen.error("No permission to edit product");
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+        });
+        adminScreen.setOnMouseClicked(e->{
+        	
+			adminScreenHandler.show();
         });
         search.setOnMouseClicked(e->{
         	onSearchAction();
@@ -183,11 +207,11 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
         
         
         
+        
         addMediaHome(this.homeItems);
         currentFilteredItems = homeItems;
     }
-
-    public void updateHome() {
+    public void updateAccount() {
     	if(user!=null) {
     		welcomeText.setText("Welcome, " + user.getUsername());
     		logIn.setText("Sign out");
@@ -196,6 +220,9 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
     		welcomeText.setText("");
     		logIn.setText("Sign In");
     	}
+    }
+    public void updateHome() {
+    	updateAccount();
     	try{
             List medium = getBController().getAllMedia();
             this.homeItems = new ArrayList<>();

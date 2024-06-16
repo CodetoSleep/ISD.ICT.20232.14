@@ -42,18 +42,21 @@ public class LoginScreenHandler extends BaseScreenHandler {
 		});
 		
 		signIn.setOnMouseClicked(e->{
-//			if(username.getText().equals("a") && password.getText().equals("a")) {
-//				homeScreenHandler.show();
-//			}
-//			if(username.getText().equals("") && password.getText().equals("")) {
-//				this.editProductScreenHandler.show();
-//			}
 			try {
 				user = controller.login(username.getText(),password.getText());
 				if(user==null)PopupScreen.error("Login failed, wrong username or password");
 				else {
-					//add fix here when user update
-					homeScreenHandler.show();
+					updateAccountAll();
+					if(user.getRoleName().equals("user")) {
+						homeScreenHandler.show();
+					}
+					else if(user.getRoleName().equals("manager")) {
+						editProductScreenHandler.show();
+					}
+					else if(user.getRoleName().equals("admin")){
+						PopupScreen.error("Not implemented yet");
+					}
+					
 				}
 			} catch (SQLException | IOException e1) {
 				e1.printStackTrace();
