@@ -14,8 +14,9 @@ public class LoginController extends BaseController {
     private static Logger LOGGER = Logger.getLogger(LoginController.class.getName());
 
 // login
+ // login
     public User login(String username, String password) throws SQLException {
-        String query = "SELECT * FROM User WHERE username = ? AND password = ?";
+        String query = "SELECT * FROM User u JOIN UserRoles ur ON u.userId = ur.userId JOIN Roles r ON ur.roleId = r.roleId WHERE username = ? AND password = ?";
         try (PreparedStatement statement = AIMSDB.getConnection().prepareStatement(query)) {
             statement.setString(1, username);
             statement.setString(2, password);
@@ -24,11 +25,14 @@ public class LoginController extends BaseController {
                 User user = new User();
                 user.setUserId(resultSet.getInt("userId"));
                 user.setUsername(resultSet.getString("username"));
+                user.setPassword(resultSet.getString("password"));
+                user.setRoleName(resultSet.getString("roleName"));
                 return user;
             }
         }
         return null;
     }
+
 
 
 //Check if the user name exists or not

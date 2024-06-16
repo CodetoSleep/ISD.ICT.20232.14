@@ -1,6 +1,7 @@
 package Run;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Scanner;
 
 import controller.LoginController;
@@ -25,7 +26,8 @@ public class App {
             System.out.println("2. Register");
             System.out.println("3. Update User");
             System.out.println("4. Delete User");
-            System.out.println("5. Exit");
+            System.out.println("5. View All Users");
+            System.out.println("6. Exit");
             System.out.print("Your choice: ");
             String option = scanner.nextLine();
 
@@ -44,6 +46,9 @@ public class App {
                         deleteUser(scanner, userController);
                         break;
                     case "5":
+                        viewAllUsers(userController);
+                        break;
+                    case "6":
                         System.out.println("Goodbye!");
                         System.exit(0);
                     default:
@@ -52,6 +57,15 @@ public class App {
             } catch (SQLException e) {
                 System.out.println("An error occurred: " + e.getMessage());
             }
+        }
+    }
+    private static void viewAllUsers(UserController userController) throws SQLException {
+        List<User> users = userController.getAllUsersWithRoles();
+        System.out.println("List of all users:");
+        for (User user : users) {
+            System.out.println("User ID: " + user.getUserId() +
+                               ", Username: " + user.getUsername() +
+                               ", Role: " + user.getRoleName());
         }
     }
 

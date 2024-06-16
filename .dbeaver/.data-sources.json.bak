@@ -1,10 +1,24 @@
 {
 	"folders": {},
 	"connections": {
-		"sqlite_jdbc-190032d71cc-e31315aca7a1b3a": {
+		"sqlite_jdbc-19007506154-1055d818e254ae3d": {
 			"provider": "sqlite",
 			"driver": "sqlite_jdbc",
 			"name": "aims.db",
+			"save-password": true,
+			"configuration": {
+				"database": "C:\\Users\\tranq\\Downloads\\ISD.ICT.20232.14\\assets\\db\\aims.db",
+				"url": "jdbc:sqlite:C:\\Users\\tranq\\Downloads\\ISD.ICT.20232.14\\assets\\db\\aims.db",
+				"configurationType": "MANUAL",
+				"type": "dev",
+				"closeIdleConnection": true,
+				"auth-model": "native"
+			}
+		},
+		"sqlite_jdbc-190177511b7-48dcbcdace544cf7": {
+			"provider": "sqlite",
+			"driver": "sqlite_jdbc",
+			"name": "aims.db 2",
 			"save-password": true,
 			"configuration": {
 				"database": "C:\\Users\\tranq\\Downloads\\ISD.ICT.20232.14\\assets\\db\\aims.db",

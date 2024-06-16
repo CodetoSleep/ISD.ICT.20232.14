@@ -4,10 +4,33 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 import entity.db.AIMSDB;
 import entity.user.User;
 
 public class UserController {
+	public List<User> getAllUsersWithRoles() throws SQLException {
+        List<User> users = new ArrayList<>();
+        String query = "SELECT u.userId, u.username, u.password, r.roleName " +
+                       "FROM User u " +
+                       "JOIN UserRoles ur ON u.userId = ur.userId " +
+                       "JOIN Roles r ON ur.roleId = r.roleId";
+        try (Connection connection = AIMSDB.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query);
+             ResultSet resultSet = statement.executeQuery()) {
+            while (resultSet.next()) {
+                int userId = resultSet.getInt("userId");
+                String username = resultSet.getString("username");
+                String password = resultSet.getString("password");
+                String roleName = resultSet.getString("roleName");
+                User user = new User(userId, username, password, roleName);
+                users.add(user);
+            }
+        }
+        return users;
+    }
 
     // Phương thức cập nhật người dùng hiện tại
     public void updateUser(User user) throws SQLException {
@@ -65,7 +88,11 @@ public class UserController {
 
     // Phương thức lấy thông tin người dùng theo ID
     public User getUserById(int userId) throws SQLException {
-        String query = "SELECT * FROM User WHERE userId = ?";
+        String query = "SELECT u.userId, u.username, u.password, r.roleName " +
+                       "FROM User u " +
+                       "JOIN UserRoles ur ON u.userId = ur.userId " +
+                       "JOIN Roles r ON ur.roleId = r.roleId " +
+                       "WHERE u.userId = ?";
         try (Connection connection = AIMSDB.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, userId);
@@ -73,7 +100,8 @@ public class UserController {
                 if (resultSet.next()) {
                     String username = resultSet.getString("username");
                     String password = resultSet.getString("password");
-                    return new User(userId, username, password);
+                    String roleName = resultSet.getString("roleName");
+                    return new User(userId, username, password, roleName);
                 } else {
                     return null; // Không tìm thấy người dùng với ID tương ứng
                 }

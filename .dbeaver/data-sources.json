@@ -1,7 +1,7 @@
 {
 	"folders": {},
 	"connections": {
-		"sqlite_jdbc-19007506154-1055d818e254ae3d": {
+		"sqlite_jdbc-1901775d7a4-f695c5d397cfdc7": {
 			"provider": "sqlite",
 			"driver": "sqlite_jdbc",
 			"name": "aims.db",
