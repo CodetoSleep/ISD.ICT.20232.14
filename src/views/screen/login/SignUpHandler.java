@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 import views.screen.BaseScreenHandler;
 import views.screen.popup.PopupScreen;
 
-public class SignInHandler extends BaseScreenHandler{
+public class SignUpHandler extends BaseScreenHandler{
 
 	@FXML
 	private Button signIn;
@@ -34,7 +34,7 @@ public class SignInHandler extends BaseScreenHandler{
 
 	private static LoginController controller;
 
-	public SignInHandler(Stage stage, String screenPath) throws IOException {
+	public SignUpHandler(Stage stage, String screenPath) throws IOException {
 		super(stage, screenPath);
 		controller = new LoginController();
 		signIn.setOnMousePressed(e->{
@@ -48,6 +48,7 @@ public class SignInHandler extends BaseScreenHandler{
 				else {
 					try {
 						controller.registerUser(new User(username.getText(),password1.getText()));
+						adminScreenHandler.updateHomeItems();
 						prev.show();
 					}
 					catch(InsufficientInputException e1) {

@@ -14,7 +14,7 @@ import entity.user.User;
 public class UserController {
 	public List<User> getAllUsersWithRoles() throws SQLException {
         List<User> users = new ArrayList<>();
-        String query = "SELECT u.userId, u.username, r.roleName " +
+        String query = "SELECT u.userId, u.username, r.roleName, password " +
                        "FROM User u " +
                        "JOIN UserRoles ur ON u.userId = ur.userId " +
                        "JOIN Roles r ON ur.roleId = r.roleId";
@@ -26,6 +26,7 @@ public class UserController {
                 user.setUserId(resultSet.getInt("userId"));
                 user.setUsername(resultSet.getString("username"));
                 user.setRoleName(resultSet.getString("roleName"));
+                user.setPassword(resultSet.getString("password"));
                 users.add(user);
             }
         }
@@ -79,7 +80,7 @@ public class UserController {
 	    }
 	}
 
-	public void deleteUser(int userId) throws SQLException {
+	public int deleteUser(int userId) throws SQLException {
 	    Connection connection = null;
 	    try {
 	        // Get the database connection
@@ -100,9 +101,9 @@ public class UserController {
 	            // Thiết lập tham số cho phương thức xóa người dùng
 	            deleteUserStatement.setInt(1, userId);
 	            // Thực thi câu lệnh xóa người dùng
-	            deleteUserStatement.executeUpdate();
+	            return deleteUserStatement.executeUpdate();
 	            
-	            System.out.println("User and associated roles deleted successfully!");
+	            //System.out.println("User and associated roles deleted successfully!");
 	        }
 	    } catch (SQLException e) {
 	        e.printStackTrace();

@@ -167,7 +167,6 @@ public class EditProductScreenHandler extends BaseScreenHandler implements Initi
         	addMediaHome(currentFilteredItems);
         });
         
-        addMediaHome(this.homeItems);
         currentFilteredItems = homeItems;
     }
     public void updateAccount() {
@@ -190,6 +189,7 @@ public class EditProductScreenHandler extends BaseScreenHandler implements Initi
                 MediaHandler m1 = new MediaHandler("/views/fxml/media_manager.fxml", media, this);
                 this.homeItems.add(m1);
             }
+            addMediaHome(this.homeItems);
         }catch (SQLException | IOException e){
             LOGGER.info("Errors occured: " + e.getMessage());
             e.printStackTrace();

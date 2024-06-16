@@ -180,8 +180,13 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
 				}
         });
         adminScreen.setOnMouseClicked(e->{
-        	
-			adminScreenHandler.show();
+        	if(user!=null&&user.getRoleName().equals("admin"))adminScreenHandler.show();
+			else
+				try {
+					PopupScreen.error("No permission to edit user");
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
         });
         search.setOnMouseClicked(e->{
         	onSearchAction();
@@ -208,7 +213,7 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
         
         
         
-        addMediaHome(this.homeItems);
+        
         currentFilteredItems = homeItems;
     }
     public void updateAccount() {
@@ -231,6 +236,7 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
                 MediaHandler m1 = new MediaHandler(Configs.HOME_MEDIA_PATH, media, this);
                 this.homeItems.add(m1);
             }
+            addMediaHome(this.homeItems);
         }catch (SQLException | IOException e1){
             LOGGER.info("Errors occured: " + e1.getMessage());
             e1.printStackTrace();

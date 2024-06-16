@@ -137,8 +137,6 @@ public class AdminScreenHandler extends BaseScreenHandler implements Initializab
         	currentFilteredItems = getItemByCategory(searchItem(searchField.getText(),homeItems),sortByCategory.getValue().toString());
         	addMediaHome(currentFilteredItems);
         });
-        
-        addMediaHome(this.homeItems);
         currentFilteredItems = homeItems;
     }
     public void updateAccount() {
@@ -154,17 +152,18 @@ public class AdminScreenHandler extends BaseScreenHandler implements Initializab
     public void updateHomeItems() {
     	updateAccount();
     	try{
-            //List medium = controller.getAllUsersWithRoles();
-    		List medium = new ArrayList<>();
-    		medium.add(new User());
-    		//remove this later and add sqlexception
+            List medium = controller.getAllUsersWithRoles();
+    		
             this.homeItems = new ArrayList<>();
             for (Object object : medium) {
                 User media = (User)object;
-                UserProfileScreenHandler m1 = new UserProfileScreenHandler(this.stage,"/views/fxml/useredit_admin.fxml", media);
-                this.homeItems.add(m1);
+                if(!media.getRoleName().equals("admin")) {
+                	UserProfileScreenHandler m1 = new UserProfileScreenHandler(this.stage,"/views/fxml/useredit_admin.fxml", media);
+                	this.homeItems.add(m1);
+                }
             }
-        }catch (IOException e){
+            addMediaHome(homeItems);
+        }catch (IOException | SQLException e){
             LOGGER.info("Errors occured: " + e.getMessage());
             e.printStackTrace();
         }

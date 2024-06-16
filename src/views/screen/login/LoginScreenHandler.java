@@ -54,7 +54,7 @@ public class LoginScreenHandler extends BaseScreenHandler {
 						editProductScreenHandler.show();
 					}
 					else if(user.getRoleName().equals("admin")){
-						PopupScreen.error("Not implemented yet");
+						adminScreenHandler.show();
 					}
 					
 				}
@@ -64,9 +64,9 @@ public class LoginScreenHandler extends BaseScreenHandler {
 		});
 		
 		signUp.setOnMouseClicked(e->{
-			SignInHandler signIn;
+			SignUpHandler signIn;
 			try {
-				signIn = new SignInHandler(this.stage,"/views/fxml/signin.fxml");
+				signIn = new SignUpHandler(this.stage,"/views/fxml/signin.fxml");
 				signIn.setPreviousScreen(this);
 				signIn.show();
 			} catch (IOException e1) {

@@ -96,7 +96,7 @@ public class BaseScreenHandler extends FXMLScreenHandler {
 	public void updateHomeItemsAll() {
 		homeScreenHandler.updateHome();
 		editProductScreenHandler.updateHomeItems();
-		adminScreenHandler.updateHomeItems();
+		//adminScreenHandler.updateHomeItems();
 	}
 	
 }

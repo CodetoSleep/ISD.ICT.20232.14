@@ -29,7 +29,7 @@
          <bottom>
             <HBox prefHeight="35.0" prefWidth="267.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="deleteUser" alignment="CENTER" mnemonicParsing="false" prefHeight="35.0" prefWidth="186.0" style="-fx-cursor: hand; -fx-background-color: red;" styleClass="btn" text="Delete user (hold 3s)" textFill="WHITE">
+                  <Button fx:id="deleteUser" alignment="CENTER" mnemonicParsing="false" prefHeight="35.0" prefWidth="186.0" style="-fx-cursor: hand; -fx-background-color: red;" styleClass="btn" text="Delete user" textFill="WHITE">
                      <HBox.margin>
                         <Insets bottom="2.0" left="70.0" />
                      </HBox.margin>
