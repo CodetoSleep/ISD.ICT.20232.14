@@ -7,7 +7,7 @@ import java.util.List;
 import utils.Configs;
 
 public class Order {
-    
+    private int id;
     private int shippingFees;
     private List lstOrderMedia;
     private HashMap<String, String> deliveryInfo;
@@ -60,5 +60,13 @@ public class Order {
         }
         return (int) (amount + (Configs.PERCENT_VAT/100)*amount);
     }
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 }
