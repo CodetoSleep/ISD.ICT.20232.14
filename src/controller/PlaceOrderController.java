@@ -60,6 +60,8 @@ public class PlaceOrderController extends BaseController{
         return new Invoice(order);
     }
 
+    
+    
     /**
      * This method takes responsibility for processing the shipping info from user
      * @param info

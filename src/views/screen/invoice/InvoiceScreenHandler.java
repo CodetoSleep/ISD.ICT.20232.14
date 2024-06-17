@@ -30,7 +30,7 @@ public class InvoiceScreenHandler extends BaseScreenHandler {
 
 	@FXML
 	private Label name;
-
+	
 	@FXML
 	private Label phone;
 

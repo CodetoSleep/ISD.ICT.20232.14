@@ -33,6 +33,9 @@ public class ShippingScreenHandler extends BaseScreenHandler implements Initiali
 	private TextField name;
 
 	@FXML
+	private TextField email;
+	
+	@FXML
 	private TextField phone;
 
 	@FXML
@@ -69,6 +72,7 @@ public class ShippingScreenHandler extends BaseScreenHandler implements Initiali
 		// add info to messages
 		HashMap messages = new HashMap<>();
 		messages.put("name", name.getText());
+		messages.put("email", email.getText());
 		messages.put("phone", phone.getText());
 		messages.put("address", address.getText());
 		messages.put("instructions", instructions.getText());
