@@ -189,7 +189,11 @@ public class EditProductScreenHandler extends BaseScreenHandler implements Initi
                 MediaHandler m1 = new MediaHandler("/views/fxml/media_manager.fxml", media, this);
                 this.homeItems.add(m1);
             }
+            currentFilteredItems = homeItems;
+            currentPage = 0;
+            sortByCategory.getSelectionModel().select(0);
             addMediaHome(this.homeItems);
+         
         }catch (SQLException | IOException e){
             LOGGER.info("Errors occured: " + e.getMessage());
             e.printStackTrace();

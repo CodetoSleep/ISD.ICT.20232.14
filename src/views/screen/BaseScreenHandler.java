@@ -31,7 +31,6 @@ public class BaseScreenHandler extends FXMLScreenHandler {
 		this.stage = new Stage();
 	}
 
-	
 
 	public void setPreviousScreen(BaseScreenHandler prev) {
 		this.prev = prev;
@@ -88,12 +87,12 @@ public class BaseScreenHandler extends FXMLScreenHandler {
 		this.adminScreenHandler = adminScreen;
 	}
 	
-	public void updateAccountAll() {
+	public static void updateAccountAll() {
 		homeScreenHandler.updateAccount();
 		editProductScreenHandler.updateAccount();
 		adminScreenHandler.updateAccount();
 	}
-	public void updateHomeItemsAll() {
+	public static void updateHomeItemsAll() {
 		homeScreenHandler.updateHome();
 		editProductScreenHandler.updateHomeItems();
 		//adminScreenHandler.updateHomeItems();

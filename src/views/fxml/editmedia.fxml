@@ -33,6 +33,12 @@
                   <TextField fx:id="sellingPrice" prefWidth="129.0" />
                </children>
             </HBox>
+            <HBox alignment="CENTER" layoutX="10.0" layoutY="95.0" prefHeight="42.0" prefWidth="178.0">
+               <children>
+                  <Label prefHeight="42.0" prefWidth="70.0" text="Item value" />
+                  <TextField fx:id="value" prefWidth="129.0" />
+               </children>
+            </HBox>
             <HBox alignment="CENTER" layoutX="10.0" layoutY="137.0" prefHeight="42.0" prefWidth="178.0">
                <children>
                   <Label prefHeight="42.0" prefWidth="70.0" text="Quantity" />
