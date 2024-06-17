@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import controller.MediaController;
 import entity.media.Media;
 import javafx.animation.PauseTransition;
 import javafx.collections.FXCollections;
@@ -17,6 +18,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Circle;
+import javafx.stage.FileChooser;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -54,16 +56,29 @@ public class ProductEditHandler extends BaseScreenHandler{
 	@FXML
 	private Button editImage;
 	
-    
+    private MediaController controller;
+    private String imageUrl;
     
     public ProductEditHandler(Stage stage) throws IOException{
+    	
         super(stage, "/views/fxml/editmedia.fxml");
+        controller = new MediaController();
         publishProduct.setOnMouseClicked(e->{
+        	try {
+				controller.insertMedia(title.getText(),category.getText(),Integer.parseInt(sellingPrice.getText()),0,Integer.parseInt(quantity.getText()),(String) type.getValue(),imageUrl,rushOrder.isSelected()?1:0);
+			} catch (NumberFormatException | SQLException e1) {
+				e1.printStackTrace();
+			}
+        	editProductScreenHandler.updateHomeItems();
         	stage.close();
         });
         ObservableList<String> options = FXCollections.observableArrayList("cd", "dvd", "book");
         type.setItems(options);
         type.getSelectionModel().select(0);
+        editImage.setOnMouseClicked(e->{
+        	selectImage();
+        });
+        
         
         
     }
@@ -86,7 +101,7 @@ public class ProductEditHandler extends BaseScreenHandler{
 
     public static void editProduct(Media media) throws IOException, SQLException{
     	ProductEditHandler popup = new ProductEditHandler(new Stage(),media);
-        //popup.stage.initStyle(StageStyle.UNDECORATED);
+        
     	
     	
         popup.show();
@@ -94,12 +109,23 @@ public class ProductEditHandler extends BaseScreenHandler{
 
     public static void createProduct() throws IOException{
     	ProductEditHandler popup = new ProductEditHandler(new Stage());
-        //popup.stage.initStyle(StageStyle.UNDECORATED);
+        
         popup.show();
     }
     
     private void submitProduct() {
     	
+    }
+    
+    private void selectImage() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+        File selectedFile = fileChooser.showOpenDialog(image.getScene().getWindow());
+        if (selectedFile != null) {
+            Image image = new Image(selectedFile.toURI().toString());
+            this.image.setImage(image);
+            imageUrl = selectedFile.toURI().toString();
+        }
     }
 
 
