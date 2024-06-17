@@ -27,6 +27,28 @@ public class Media {
     protected String imageURL;
     protected int rushOrder;
 
+    public Statement getStm() {
+        return stm;
+    }
+
+    public void setStm(Statement stm) {
+        this.stm = stm;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public Media setValue(int value) {
+        this.value = value;
+        return this;
+    }
+
+    public Media setImageURL(String imageURL) {
+        this.imageURL = imageURL;
+        return this;
+    }
+
     public int getRushOrder() {
         return rushOrder;
     }
@@ -43,8 +65,9 @@ public class Media {
         this.rushOrder = rushOrder;
     }
 
-    public void setRushOrder(int rushOrder) {
+    public Media setRushOrder(int rushOrder) {
         this.rushOrder = rushOrder;
+        return this;
     }
 
     public Media() throws SQLException{
@@ -79,9 +102,12 @@ public class Media {
                 .setTitle(res.getString("title"))
                 .setQuantity(res.getInt("quantity"))
                 .setCategory(res.getString("category"))
-                .setMediaURL(res.getString("imageUrl"))
+                .setImageUrl(res.getString("imageUrl"))
+                .setValue(res.getInt("value"))
                 .setPrice(res.getInt("price"))
-                .setType(res.getString("type"));
+                .setType(res.getString("type"))
+                .setImageURL(res.getString("imageUrl"))
+                .setRushOrder(res.getInt("rushOrder"));
         }
         return null;
     }
@@ -96,7 +122,8 @@ public class Media {
                 .setTitle(res.getString("title"))
                 .setQuantity(res.getInt("quantity"))
                 .setCategory(res.getString("category"))
-                .setMediaURL(res.getString("imageUrl"))
+                .setImageUrl(res.getString("imageUrl"))
+                .setValue(res.getInt("value"))
                 .setPrice(res.getInt("price"))
                 .setType(res.getString("type"));
             medium.add(media);
@@ -139,6 +166,29 @@ public class Media {
         pstmt.executeUpdate();
     }
 
+    public void updateMediaById(int id, Media updatedMedia) throws SQLException {
+        String sql = "UPDATE Media SET title = ?, category = ?, price = ?, value = ?, quantity = ?, type = ?, imageUrl = ?, rushOrder = ? WHERE id = ?";
+        try (Connection connection = AIMSDB.getConnection();
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+
+            pstmt.setString(1, updatedMedia.getTitle());
+            pstmt.setString(2, updatedMedia.getCategory());
+            pstmt.setInt(3, updatedMedia.getPrice());
+            pstmt.setInt(4, updatedMedia.getValue());
+            pstmt.setInt(5, updatedMedia.getQuantity());
+            pstmt.setString(6, updatedMedia.getType());
+            pstmt.setString(7, updatedMedia.getImageURL());
+            pstmt.setInt(8, updatedMedia.getRushOrder());
+            pstmt.setInt(9, id);
+
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            LOGGER.severe("Error updating media with id " + id + ": " + e.getMessage());
+            throw e;
+        }
+    }
+
+
     // getter and setter 
     public int getId() {
         return this.id;
@@ -180,7 +230,7 @@ public class Media {
         return this.imageURL;
     }
 
-    public Media setMediaURL(String url){
+    public Media setImageUrl(String url){
         this.imageURL = url;
         return this;
     }

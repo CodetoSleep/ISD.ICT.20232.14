@@ -35,7 +35,11 @@ public class MediaController extends BaseController {
     TODO Example:
           updateMedia(40, "title", "Phạm Nhật Minh");
      */
-    public void updateMedia(int id, String field, Object value) throws SQLException {
+    public void updateFieldMediaById(int id, String field, Object value) throws SQLException {
         new Media().updateMediaFieldById(id, field, value);
+    }
+
+    public void updateMediaById(int id, Media media) throws SQLException {
+        new Media().updateMediaById(id, media);
     }
 }
