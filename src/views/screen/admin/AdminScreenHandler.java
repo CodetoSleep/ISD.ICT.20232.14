@@ -162,6 +162,9 @@ public class AdminScreenHandler extends BaseScreenHandler implements Initializab
                 	this.homeItems.add(m1);
                 }
             }
+            currentFilteredItems = homeItems;
+            currentPage = 0;
+            sortByCategory.getSelectionModel().select(0);
             addMediaHome(homeItems);
         }catch (IOException | SQLException e){
             LOGGER.info("Errors occured: " + e.getMessage());

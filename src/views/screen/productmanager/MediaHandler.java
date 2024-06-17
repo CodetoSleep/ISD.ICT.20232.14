@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.logging.Logger;
 
 import common.exception.MediaNotAvailableException;
+import controller.MediaController;
 import entity.cart.Cart;
 import entity.cart.CartMedia;
 import entity.media.Media;
@@ -22,6 +23,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 import utils.Utils;
+import views.screen.BaseScreenHandler;
 import views.screen.FXMLScreenHandler;
 import views.screen.home.HomeScreenHandler;
 import views.screen.popup.PopupScreen;
@@ -47,22 +49,22 @@ public class MediaHandler extends FXMLScreenHandler{
     private Media media;
     private EditProductScreenHandler home;
     private Timeline holdTimeline;
+    private MediaController controller;
     public MediaHandler(String screenPath, Media media, EditProductScreenHandler home) throws SQLException, IOException{
         super(screenPath);
+        controller = new MediaController();
         this.media = media;
         this.home = home;
         setMediaInfo();
         
         deleteMedia.setOnMousePressed(e->{
-            holdTimeline = new Timeline(new KeyFrame(Duration.seconds(3), event -> {
-            	//set delete product here
-                System.out.println("Button held for 3 seconds!");
-            }));
-            holdTimeline.setCycleCount(1);
-            holdTimeline.play();
-        });
-        deleteMedia.setOnMouseReleased(e->{
-        	if(holdTimeline!=null)holdTimeline.stop();
+            try {
+				controller.deleteById(media.getId());
+				BaseScreenHandler.updateHomeItemsAll();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+            
         });
         
         editMedia.setOnMouseClicked(e->{

@@ -16,6 +16,7 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import views.screen.BaseScreenHandler;
+import views.screen.popup.PopupScreen;
 
 public class UserProfileScreenHandler extends BaseScreenHandler{
 
@@ -51,6 +52,12 @@ public class UserProfileScreenHandler extends BaseScreenHandler{
 					controller.deleteUser(user.getUserId());
 					adminScreenHandler.updateHomeItems();
 				} catch (SQLException e1) {
+					try {
+						PopupScreen.error("Delete failed");
+					} catch (IOException e2) {
+						// TODO Auto-generated catch block
+						e2.printStackTrace();
+					}
 					e1.printStackTrace();
 				}
 		});
@@ -58,10 +65,16 @@ public class UserProfileScreenHandler extends BaseScreenHandler{
 			try {
 				controller.updateUser(user, String.valueOf(role.getValue()));
 				adminScreenHandler.updateHomeItems();
-				
 			} catch (SQLException e1) {
+				try {
+					PopupScreen.error("Role changed failed");
+				} catch (IOException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
 				e1.printStackTrace();
 			}
+			
 		});
 		
 

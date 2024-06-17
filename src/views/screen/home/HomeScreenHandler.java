@@ -236,6 +236,9 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
                 MediaHandler m1 = new MediaHandler(Configs.HOME_MEDIA_PATH, media, this);
                 this.homeItems.add(m1);
             }
+            currentFilteredItems = homeItems;
+            currentPage = 0;
+            sortByCategory.getSelectionModel().select(0);
             addMediaHome(this.homeItems);
         }catch (SQLException | IOException e1){
             LOGGER.info("Errors occured: " + e1.getMessage());
