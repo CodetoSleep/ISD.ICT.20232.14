@@ -131,7 +131,8 @@ public class Media {
                 .setImageUrl(res.getString("imageUrl"))
                 .setValue(res.getInt("value"))
                 .setPrice(res.getInt("price"))
-                .setType(res.getString("type"));
+                .setType(res.getString("type"))
+            	.setRushOrder(res.getInt("rushorder"));
             medium.add(media);
         }
         return medium;

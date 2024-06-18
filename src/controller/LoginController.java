@@ -91,7 +91,7 @@ public class LoginController extends BaseController {
     }
 
 // auto role = user for new account
-    private void assignRole(int userId, String roleName) throws SQLException {
+    public void assignRole(int userId, String roleName) throws SQLException {
         // Get the roleId for the given roleName
         String roleQuery = "SELECT roleId FROM Roles WHERE roleName = ?";
         try (PreparedStatement roleStatement = AIMSDB.getConnection().prepareStatement(roleQuery)) {
