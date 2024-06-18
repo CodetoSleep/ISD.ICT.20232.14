@@ -134,7 +134,7 @@ public class PaymentScreenHandler extends BaseScreenHandler {
                 "Phone number: " + invoice.getOrder().getDeliveryInfo().get("phone") + "\n" +
                 "Address: " + invoice.getOrder().getDeliveryInfo().get("address") + "\n" +
                 "Email: " + invoice.getOrder().getDeliveryInfo().get("email") + "\n" +
-                "Total amount: " + invoice.getAmount() + "\n" +
+                "Total amount: " + invoice.getAmount() * 1000 + "\n" +
                 "Your order will be processed by manager later.\nPlease check your mail regularly.\n\nThank you.";
 
             message.setText(content);

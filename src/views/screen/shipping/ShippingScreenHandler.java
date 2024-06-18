@@ -77,7 +77,28 @@ public class ShippingScreenHandler extends BaseScreenHandler implements Initiali
 		messages.put("address", address.getText());
 		messages.put("instructions", instructions.getText());
 		messages.put("province", province.getValue());
-		
+		var placeOrderCtrl = getBController();
+		if (!placeOrderCtrl.validateContainLetterAndNoEmpty(name.getText())) {
+            PopupScreen.error("Name is not valid!");
+            return;
+        }
+		if (!placeOrderCtrl.validateEmail(email.getText())) {
+            PopupScreen.error("Email is not valid!");
+            return;
+        }
+        if (!placeOrderCtrl.validatePhoneNumber(phone.getText())) {
+            PopupScreen.error("Phone is not valid!");
+            return;
+
+        }
+        if (!placeOrderCtrl.validateContainLetterAndNoEmpty(address.getText())) {
+            PopupScreen.error("Address is not valid!");
+            return;
+        }
+        if (province.getValue() == null) {
+            PopupScreen.error("Province is empty!");
+            return;
+        }
 		try {
 			// process and validate delivery info
 			getBController().processDeliveryInfo(messages);

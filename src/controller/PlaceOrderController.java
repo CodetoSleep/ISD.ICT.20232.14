@@ -85,13 +85,44 @@ public class PlaceOrderController extends BaseController{
     }
     
     public boolean validatePhoneNumber(String phoneNumber) {
-    	// TODO: your work
-    	return false;
+    	if (phoneNumber.length() != 10)
+            return false;
+        if (Character.compare(phoneNumber.charAt(0), '0') != 0)
+            return false;
+        try {
+            Long.parseUnsignedLong(phoneNumber);
+        } catch (NumberFormatException e) {
+            return false;
+        }
+
+        return true;
     }
     
-    public boolean validateName(String name) {
-    	// TODO: your work
-    	return false;
+    public boolean validateContainLetterAndNoEmpty(String name) {
+        // Check name is not null
+        if (name == null)
+            return false;
+        // Check if contain letter space only
+        if (name.trim().length() == 0)
+            return false;
+        // Check if contain only letter and space
+        if (name.matches("^[a-zA-Z ]*$") == false)
+            return false;
+        return true;
+    }
+    
+    public boolean validateEmail(String email) {
+        // Check if email is not null
+        if (email == null)
+            return false;
+        // Check if email contains spaces
+        if (email.contains(" "))
+            return false;
+        // Check if email follows the basic pattern (something@domain)
+        String emailPattern = "^[\\w\\.-]+@[\\w\\.-]+\\.[a-zA-Z]{2,}$";
+        if (!email.matches(emailPattern))
+            return false;
+        return true;
     }
     
     public boolean validateAddress(String address) {
