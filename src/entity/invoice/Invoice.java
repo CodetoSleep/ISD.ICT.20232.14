@@ -1,21 +1,22 @@
 package entity.invoice;
 
 import entity.order.Order;
+import entity.order.OrderDTO;
 
 public class Invoice {
 
-    private Order order;
+    private OrderDTO order;
     private int amount;
     
     public Invoice(){
 
     }
 
-    public Invoice(Order order){
+    public Invoice(OrderDTO order){
         this.order = order;
     }
 
-    public Order getOrder() {
+    public OrderDTO getOrder() {
         return order;
     }
 

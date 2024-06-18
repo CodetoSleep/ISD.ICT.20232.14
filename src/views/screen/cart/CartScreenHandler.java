@@ -11,8 +11,10 @@ import common.exception.MediaNotAvailableException;
 import common.exception.PlaceOrderException;
 import controller.PlaceOrderController;
 import controller.ViewCartController;
+import entity.cart.Cart;
 import entity.cart.CartMedia;
 import entity.order.Order;
+import entity.order.OrderMedia;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -113,17 +115,18 @@ public class CartScreenHandler extends BaseScreenHandler {
 				PopupScreen.error("You don't have anything to place");
 				return;
 			}
-
+			
 			placeOrderController.placeOrder();
+			
 			
 			// display available media
 			displayCartWithMediaAvailability();
 
 			// create order
-			Order order = placeOrderController.createOrder();
+			List<OrderMedia> productsInCart = placeOrderController.convertCartMediaToOrderMedia(Cart.getCart().getListMedia());
 
 			// display shipping form
-			ShippingScreenHandler ShippingScreenHandler = new ShippingScreenHandler(this.stage, Configs.SHIPPING_SCREEN_PATH, order);
+			ShippingScreenHandler ShippingScreenHandler = new ShippingScreenHandler(this.stage, Configs.SHIPPING_SCREEN_PATH, productsInCart);
 			ShippingScreenHandler.setPreviousScreen(this);
 			ShippingScreenHandler.setHomeScreenHandler(homeScreenHandler);
 			ShippingScreenHandler.setScreenTitle("Shipping Screen");
@@ -132,6 +135,7 @@ public class CartScreenHandler extends BaseScreenHandler {
 
 		} catch (MediaNotAvailableException e) {
 			// if some media are not available then display cart and break usecase Place Order
+			PopupScreen.error(e.getMessage());
 			displayCartWithMediaAvailability();
 		}
 	}

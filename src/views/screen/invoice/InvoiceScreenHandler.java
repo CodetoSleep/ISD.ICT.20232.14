@@ -3,12 +3,15 @@ package views.screen.invoice;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.logging.Logger;
 
 import common.exception.ProcessInvoiceException;
 import controller.PaymentController;
+import controller.PlaceOrderController;
 import entity.invoice.Invoice;
 import entity.order.Order;
+import entity.order.OrderDTO;
 import entity.order.OrderMedia;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -64,17 +67,20 @@ public class InvoiceScreenHandler extends BaseScreenHandler {
 	}
 
 	private void setInvoiceInfo(){
-		HashMap<String, String> deliveryInfo = invoice.getOrder().getDeliveryInfo();
-		name.setText(deliveryInfo.get("name"));
-		province.setText(deliveryInfo.get("province"));
-		instructions.setText(deliveryInfo.get("instructions"));
-		address.setText(deliveryInfo.get("address"));
-		subtotal.setText(Utils.getCurrencyFormat(invoice.getOrder().getAmount()));
-		shippingFees.setText(Utils.getCurrencyFormat(invoice.getOrder().getShippingFees()));
-		int amount = invoice.getOrder().getAmount() + invoice.getOrder().getShippingFees();
+		//HashMap<String, String> deliveryInfo = invoice.getOrder().getDeliveryInfo();
+		OrderDTO order = invoice.getOrder();
+		List<OrderMedia> productList = invoice.getOrder().getOrderMediaList();
+		PlaceOrderController controller = new PlaceOrderController();
+		//name.setText(deliveryInfo.get("name"));
+		province.setText(order.getCity());
+		//instructions.setText(deliveryInfo.get("instructions"));
+		address.setText(order.getAddress());
+		subtotal.setText(Utils.getCurrencyFormat( controller.calculateItemsValue(productList)));
+		shippingFees.setText(Utils.getCurrencyFormat(controller.calculateShippingFee(productList)));
+		int amount = order.getShippingFee();
 		total.setText(Utils.getCurrencyFormat(amount));
 		invoice.setAmount(amount);
-		invoice.getOrder().getlstOrderMedia().forEach(orderMedia -> {
+		productList.forEach(orderMedia -> {
 			try {
 				MediaInvoiceScreenHandler mis = new MediaInvoiceScreenHandler(Configs.INVOICE_MEDIA_SCREEN_PATH);
 				mis.setOrderMedia((OrderMedia) orderMedia);

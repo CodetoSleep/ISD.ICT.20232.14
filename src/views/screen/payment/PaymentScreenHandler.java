@@ -123,17 +123,17 @@ public class PaymentScreenHandler extends BaseScreenHandler {
 
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress("minhz123456@gmail.com"));
-            message.addRecipient(MimeMessage.RecipientType.TO, new InternetAddress((String) invoice.getOrder().getDeliveryInfo().get("email")));
+            message.addRecipient(MimeMessage.RecipientType.TO, new InternetAddress((String) invoice.getOrder().getEmail()));
 
             message.setSubject("AIMS GROUP-14 NOTIFICATION");
 
             String content = "AIMS GROUP-14 NOTIFICATION\n\n" +
                 "Your order has been placed successfully. Here is your invoice's information. Please check it.\n" +
                 "Order ID: " + invoice.getOrder().getId() + " (You can later use it to review your order in app)\n" +
-                "Recipient's name: " + invoice.getOrder().getDeliveryInfo().get("name") + "\n" +
-                "Phone number: " + invoice.getOrder().getDeliveryInfo().get("phone") + "\n" +
-                "Address: " + invoice.getOrder().getDeliveryInfo().get("address") + "\n" +
-                "Email: " + invoice.getOrder().getDeliveryInfo().get("email") + "\n" +
+                "Recipient's name: " + invoice.getOrder().getName() + "\n" +
+                "Phone number: " + invoice.getOrder().getPhone() + "\n" +
+                "Address: " + invoice.getOrder().getAddress() + "\n" +
+                "Email: " + invoice.getOrder().getEmail() + "\n" +
                 "Total amount: " + invoice.getAmount() * 1000 + "\n" +
                 "Your order will be processed by manager later.\nPlease check your mail regularly.\n\nThank you.";
 

@@ -2,14 +2,19 @@ package views.screen.shipping;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import controller.PlaceOrderController;
 import common.exception.InvalidDeliveryInfoException;
+import entity.cart.CartMedia;
 import entity.invoice.Invoice;
 import entity.order.Order;
+import entity.order.OrderDTO;
+import entity.order.OrderMedia;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
@@ -47,11 +52,11 @@ public class ShippingScreenHandler extends BaseScreenHandler implements Initiali
 	@FXML
 	private ComboBox<String> province;
 
-	private Order order;
+	private List<OrderMedia> productsInCart;
 
-	public ShippingScreenHandler(Stage stage, String screenPath, Order order) throws IOException {
+	public ShippingScreenHandler(Stage stage, String screenPath, List<OrderMedia> productsInCart) throws IOException {
 		super(stage, screenPath);
-		this.order = order;
+		this.productsInCart= productsInCart;
 	}
 
 	@Override
@@ -107,12 +112,18 @@ public class ShippingScreenHandler extends BaseScreenHandler implements Initiali
 		}
 	
 		// calculate shipping fees
-		int shippingFees = getBController().calculateShippingFee(order);
-		order.setShippingFees(shippingFees);
-		order.setDeliveryInfo(messages);
+		int shippingFees = getBController().calculateShippingFee(productsInCart) + getBController().calculateItemsValue(productsInCart);
+		//order.setShippingFees(shippingFees);
+		//order.setDeliveryInfo(messages);
+		//TODO FIX DATE:
+		Order orderInfo = new Order(email.getText(), province.getValue(), address.getText(), phone.getText(), 0, shippingFees, 0,"Waiting Approval",name.getText(), Date.valueOf("2024-06-13"),instructions.getText());
+		getBController().createOrder(orderInfo,productsInCart);
+		OrderDTO order = new OrderDTO(orderInfo);
+		order.setOrderMediaList(productsInCart);
 		
 		// create invoice screen
 		Invoice invoice = getBController().createInvoice(order);
+		
 		BaseScreenHandler InvoiceScreenHandler = new InvoiceScreenHandler(this.stage, Configs.INVOICE_SCREEN_PATH, invoice);
 		InvoiceScreenHandler.setPreviousScreen(this);
 		InvoiceScreenHandler.setHomeScreenHandler(homeScreenHandler);
