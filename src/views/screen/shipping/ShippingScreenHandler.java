@@ -2,19 +2,26 @@ package views.screen.shipping;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import controller.PlaceOrderController;
 import common.exception.InvalidDeliveryInfoException;
+import entity.cart.CartMedia;
 import entity.invoice.Invoice;
 import entity.order.Order;
+import entity.order.OrderDTO;
+import entity.order.OrderMedia;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -43,15 +50,21 @@ public class ShippingScreenHandler extends BaseScreenHandler implements Initiali
 
 	@FXML
 	private TextField instructions;
+	
+	@FXML
+	private DatePicker time;
+	
+	@FXML
+	private CheckBox rushOrder;
 
 	@FXML
 	private ComboBox<String> province;
 
-	private Order order;
+	private List<OrderMedia> productsInCart;
 
-	public ShippingScreenHandler(Stage stage, String screenPath, Order order) throws IOException {
+	public ShippingScreenHandler(Stage stage, String screenPath, List<OrderMedia> productsInCart) throws IOException {
 		super(stage, screenPath);
-		this.order = order;
+		this.productsInCart= productsInCart;
 	}
 
 	@Override
@@ -64,6 +77,37 @@ public class ShippingScreenHandler extends BaseScreenHandler implements Initiali
             }
         });
 		this.province.getItems().addAll(Configs.PROVINCES);
+		rushOrder.setOnAction(e->{
+			int isRushOrder = new PlaceOrderController().checkRushOrder(productsInCart);
+			if(rushOrder.isSelected()) {
+				if(isRushOrder==0) {
+					rushOrder.setSelected(false);
+					try {
+						PopupScreen.error("No item possible for rush order");
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+				}
+				if(isRushOrder==1) {
+					try {
+						PopupScreen.error("Warning, items that aren't possible for rush order will be delivered seperately with seperate delivery fees");
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+					instructions.setDisable(false);
+					time.setDisable(false);
+				}
+				if(isRushOrder == 2) {
+					instructions.setDisable(false);
+					time.setDisable(false);
+				}
+			}
+			else {
+				instructions.setDisable(true);
+				time.setDisable(true);
+			}
+		});
+		
 	}
 
 	@FXML
@@ -95,10 +139,15 @@ public class ShippingScreenHandler extends BaseScreenHandler implements Initiali
             PopupScreen.error("Address is not valid!");
             return;
         }
+        if(rushOrder.isSelected()&& !placeOrderCtrl.validateDate(time.getValue())) {
+        	PopupScreen.error("Date is not valid");
+        	return;
+        }
         if (province.getValue() == null) {
             PopupScreen.error("Province is empty!");
             return;
         }
+        
 		try {
 			// process and validate delivery info
 			getBController().processDeliveryInfo(messages);
@@ -107,12 +156,18 @@ public class ShippingScreenHandler extends BaseScreenHandler implements Initiali
 		}
 	
 		// calculate shipping fees
-		int shippingFees = getBController().calculateShippingFee(order);
-		order.setShippingFees(shippingFees);
-		order.setDeliveryInfo(messages);
+		int shippingFees = getBController().calculateShippingFee(productsInCart,rushOrder.isSelected()?1:0) + getBController().calculateItemsValue(productsInCart);
+		//order.setShippingFees(shippingFees);
+		//order.setDeliveryInfo(messages);
+		
+		Order orderInfo = new Order(email.getText(), province.getValue(), address.getText(), phone.getText(), rushOrder.isSelected()?1:0, shippingFees, 0,"Waiting Approval",name.getText(), Date.valueOf(time.getValue()),instructions.getText());
+		getBController().createOrder(orderInfo,productsInCart);
+		OrderDTO order = new OrderDTO(orderInfo);
+		order.setOrderMediaList(productsInCart);
 		
 		// create invoice screen
 		Invoice invoice = getBController().createInvoice(order);
+		
 		BaseScreenHandler InvoiceScreenHandler = new InvoiceScreenHandler(this.stage, Configs.INVOICE_SCREEN_PATH, invoice);
 		InvoiceScreenHandler.setPreviousScreen(this);
 		InvoiceScreenHandler.setHomeScreenHandler(homeScreenHandler);

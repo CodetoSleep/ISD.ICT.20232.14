@@ -91,24 +91,30 @@ public class Media {
         return updated_quantity;
     }
 
-    public Media getMediaById(int id) throws SQLException{
-        String sql = "SELECT * FROM Media ;";
-        Statement stm = AIMSDB.getConnection().createStatement();
-        ResultSet res = stm.executeQuery(sql);
-		if(res.next()) {
+    public Media getMediaById(int id) throws SQLException {
+        String sql = "SELECT * FROM Media WHERE id = ?;";
+        Connection connection = null;
+        PreparedStatement pstmt = null;
+        ResultSet res = null;
 
-            return new Media()
-                .setId(res.getInt("id"))
-                .setTitle(res.getString("title"))
-                .setQuantity(res.getInt("quantity"))
-                .setCategory(res.getString("category"))
-                .setImageUrl(res.getString("imageUrl"))
-                .setValue(res.getInt("value"))
-                .setPrice(res.getInt("price"))
-                .setType(res.getString("type"))
-                .setImageURL(res.getString("imageUrl"))
-                .setRushOrder(res.getInt("rushOrder"));
-        }
+        connection = AIMSDB.getConnection();
+        pstmt = connection.prepareStatement(sql);
+        pstmt.setInt(1, id);
+        res = pstmt.executeQuery();
+
+            if (res.next()) {
+                return new Media()
+                    .setId(res.getInt("id"))
+                    .setTitle(res.getString("title"))
+                    .setQuantity(res.getInt("quantity"))
+                    .setCategory(res.getString("category"))
+                    .setImageUrl(res.getString("imageUrl"))
+                    .setValue(res.getInt("value"))
+                    .setPrice(res.getInt("price"))
+                    .setType(res.getString("type"))
+                    .setImageURL(res.getString("imageUrl")) // This line is redundant with .setImageUrl above
+                    .setRushOrder(res.getInt("rushOrder"));
+            }
         return null;
     }
 
@@ -168,24 +174,20 @@ public class Media {
 
     public void updateMediaById(int id, Media updatedMedia) throws SQLException {
         String sql = "UPDATE Media SET title = ?, category = ?, price = ?, value = ?, quantity = ?, type = ?, imageUrl = ?, rushOrder = ? WHERE id = ?";
-        try (Connection connection = AIMSDB.getConnection();
-             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+        Connection connection = AIMSDB.getConnection();
+        PreparedStatement pstmt = connection.prepareStatement(sql);
 
-            pstmt.setString(1, updatedMedia.getTitle());
-            pstmt.setString(2, updatedMedia.getCategory());
-            pstmt.setInt(3, updatedMedia.getPrice());
-            pstmt.setInt(4, updatedMedia.getValue());
-            pstmt.setInt(5, updatedMedia.getQuantity());
-            pstmt.setString(6, updatedMedia.getType());
-            pstmt.setString(7, updatedMedia.getImageURL());
-            pstmt.setInt(8, updatedMedia.getRushOrder());
-            pstmt.setInt(9, id);
+        pstmt.setString(1, updatedMedia.getTitle());
+        pstmt.setString(2, updatedMedia.getCategory());
+        pstmt.setInt(3, updatedMedia.getPrice());
+        pstmt.setInt(4, updatedMedia.getValue());
+        pstmt.setInt(5, updatedMedia.getQuantity());
+        pstmt.setString(6, updatedMedia.getType());
+        pstmt.setString(7, updatedMedia.getImageURL());
+        pstmt.setInt(8, updatedMedia.getRushOrder());
+        pstmt.setInt(9, id);
 
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            LOGGER.severe("Error updating media with id " + id + ": " + e.getMessage());
-            throw e;
-        }
+        pstmt.executeUpdate();
     }
 
 
