@@ -11,10 +11,10 @@ public class PaymentTransaction {
     private String transactionContent;
     private int amount;
     private Integer orderID;
-    private Date createdAt;
+    private Timestamp createdAt;
 
     public PaymentTransaction(String errorCode, String transactionId, String transactionContent,
-                              int amount, Date createdAt) {
+                              int amount, Timestamp createdAt) {
         super();
         this.errorCode = errorCode;
 
@@ -44,9 +44,8 @@ public class PaymentTransaction {
                 "VALUES ( ?, ?, ?)";
         try (PreparedStatement preparedStatement = AIMSDB.getConnection().prepareStatement(query)) {
             preparedStatement.setInt(1, orderID);
-            preparedStatement.setDate(2, new java.sql.Date(createdAt.getTime()));
-            preparedStatement.setString(3,transactionContent );
-
+            preparedStatement.setTimestamp(2, createdAt);
+            preparedStatement.setString(3, transactionContent);
             preparedStatement.executeUpdate();
         }
     }

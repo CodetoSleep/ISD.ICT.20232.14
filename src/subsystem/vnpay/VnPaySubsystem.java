@@ -1,4 +1,4 @@
-package subsystem;
+package subsystem.vnpay;
 
 //import entity.payment.CreditCard;
 
@@ -7,7 +7,6 @@ import common.exception.TransactionNotDoneException;
 import common.exception.TransactionReverseException;
 import common.exception.UnrecognizedException;
 import entity.payment.PaymentTransaction;
-import subsystem.vnpay.VnPaySubsystemController;
 
 import java.io.IOException;
 import java.text.ParseException;

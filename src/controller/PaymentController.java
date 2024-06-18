@@ -4,8 +4,11 @@ import common.exception.PaymentException;
 //import common.exception.TransactionNotDoneException;
 import common.exception.UnrecognizedException;
 import entity.cart.Cart;
-import subsystem.VnPayInterface;
-import subsystem.VnPaySubsystem;
+import entity.invoice.Invoice;
+import subsystem.mail.MailService;
+import subsystem.vnpay.VnPayInterface;
+import subsystem.vnpay.VnPaySubsystem;
+import utils.MailConfig;
 
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -24,6 +27,7 @@ public class PaymentController extends BaseController {
      * Represent the Interbank subsystem
      */
     private VnPayInterface vnPayService;
+    private Invoice invoice;
 
     /**
      * Validate the input date which should be in the format "mm/yy", and then
@@ -37,10 +41,23 @@ public class PaymentController extends BaseController {
      *                                     in the expected format
      */
 
-    public Map<String, String> makePayment(Map<String, String> res, int orderId) {
+    public Map<String, String> makePayment(Map<String, String> res, int orderId, Invoice invoice) {
         Map<String, String> result = new Hashtable<String, String>();
-
         try {
+        	this.invoice = invoice;
+        	MailConfig mailConfig = new MailConfig(
+                    "smtp.gmail.com",
+                    "465",
+                    "true",
+                    "javax.net.ssl.SSLSocketFactory",
+                    "minhz123456@gmail.com",
+                    "jycyhkltlwfjrgqo"
+                );
+            MailService mailService = new MailService(mailConfig);
+            MailController mailController = new MailController(mailService);
+
+            // Assume Invoice is properly instantiated with the required details.
+            mailController.sendInvoiceEmail(invoice);
             this.vnPayService = new VnPaySubsystem();
             var trans = vnPayService.makePaymentTransaction(res);
             trans.save(orderId);

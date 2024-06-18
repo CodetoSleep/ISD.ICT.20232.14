@@ -6,6 +6,7 @@ import entity.payment.PaymentTransaction;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -119,11 +120,14 @@ public class VnPaySubsystemController {
         String transactionContent = response.get("vnp_OrderInfo");
         int amount = Integer.parseInt((String) response.get("vnp_Amount")) / 100;
         String createdAt = response.get("vnp_PayDate");
+        System.out.print(createdAt);
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
 
-            Date date = dateFormat.parse(createdAt);
-            PaymentTransaction trans = new
-                PaymentTransaction(errorCode, transactionId, transactionContent, amount, date);
+        Date date = dateFormat.parse(createdAt);
+        System.out.print(date);
+        Timestamp timestamp = new Timestamp(date.getTime());
+        System.out.print(timestamp);
+        PaymentTransaction trans = new PaymentTransaction(errorCode, transactionId, transactionContent, amount, timestamp);
             switch (trans.getErrorCode()) {
                 case "00":
                     break;
