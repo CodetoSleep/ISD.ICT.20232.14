@@ -1,7 +1,6 @@
 package entity.order;
 
 import java.util.ArrayList;
-import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -119,6 +118,20 @@ public class Order {
         }
 
         return orders;
+    }
+    
+    public void updateIsPaidByOrderId(int orderId) throws SQLException {
+        Connection connection = AIMSDB.getConnection();
+        String sql = "UPDATE Order SET isPaid = 1 WHERE id = ?";
+        PreparedStatement pstmt = connection.prepareStatement(sql);
+
+        pstmt.setInt(1, orderId);
+
+        int rowsAffected = pstmt.executeUpdate();
+
+        if (rowsAffected == 0) {
+            throw new SQLException("Updating order failed, no rows affected.");
+        }
     }
 
     public String getName() {

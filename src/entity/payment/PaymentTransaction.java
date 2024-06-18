@@ -6,6 +6,8 @@ import entity.invoice.Invoice;
 import java.sql.*;
 import java.util.Date;
 
+import controller.PlaceOrderController;
+
 public class PaymentTransaction {
     private String errorCode;
     private String transactionId;
@@ -49,6 +51,8 @@ public class PaymentTransaction {
             preparedStatement.setString(3, transactionContent);
             preparedStatement.executeUpdate();
         }
+        PlaceOrderController up = new PlaceOrderController();
+        up.updateIsPaidByOrderId(orderId);
     }
 
 }

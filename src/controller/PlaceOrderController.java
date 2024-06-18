@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -57,6 +58,10 @@ public class PlaceOrderController extends BaseController{
                 order.getShippingInstruction());
         new OrderMedia().insertOrderMedia(orderMediaList,orderId);
         return orderId;
+    }
+    
+    public void updateIsPaidByOrderId(int orderId) throws SQLException {
+        new Order().updateIsPaidByOrderId(orderId);
     }
     
     
