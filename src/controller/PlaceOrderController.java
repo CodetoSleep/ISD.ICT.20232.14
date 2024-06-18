@@ -1,12 +1,15 @@
 package controller;
 
 import java.io.IOException;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.logging.Logger;
 import entity.cart.Cart;
 import entity.cart.CartMedia;
+import entity.db.AIMSDB;
 import common.exception.InvalidDeliveryInfoException;
 import entity.invoice.Invoice;
 import entity.media.Media;
@@ -40,7 +43,7 @@ public class PlaceOrderController extends BaseController{
      * @return Order
      * @throws SQLException
      */
-    public void createOrder(Order order, List<OrderMedia> orderMediaList) throws SQLException {
+    public int createOrder(Order order, List<OrderMedia> orderMediaList) throws SQLException {
         int orderId = new Order().insertOrder(order.getEmail(),
                 order.getCity(),
                 order.getAddress(),
@@ -53,7 +56,10 @@ public class PlaceOrderController extends BaseController{
                 order.getTime(),
                 order.getShippingInstruction());
         new OrderMedia().insertOrderMedia(orderMediaList,orderId);
+        return orderId;
     }
+    
+    
 
     public static List<OrderDTO> getAllOrders() throws SQLException{
         List<OrderDTO> result = new ArrayList<>();
@@ -193,7 +199,7 @@ public class PlaceOrderController extends BaseController{
         }
         
         Random rand = new Random();
-        int fees = (int)( ( (rand.nextFloat()*10)/100 ) * itemPrice + rushOrderItems* 10000 );
+        int fees = (int)( ( (rand.nextFloat()*10)/100 ) * itemPrice + rushOrderItems* 10 );
         LOGGER.info("Order Amount: " + itemPrice + " -- Shipping Fees: " + fees);
         return fees;
     }

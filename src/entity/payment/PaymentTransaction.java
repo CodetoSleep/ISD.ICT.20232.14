@@ -1,6 +1,7 @@
 package entity.payment;
 
 import entity.db.AIMSDB;
+import entity.invoice.Invoice;
 
 import java.sql.*;
 import java.util.Date;

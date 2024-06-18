@@ -161,7 +161,9 @@ public class ShippingScreenHandler extends BaseScreenHandler implements Initiali
 		//order.setDeliveryInfo(messages);
 		
 		Order orderInfo = new Order(email.getText(), province.getValue(), address.getText(), phone.getText(), rushOrder.isSelected()?1:0, shippingFees, 0,"Waiting Approval",name.getText(), time.getValue()==null?null:Date.valueOf(time.getValue()),instructions.getText());
-		getBController().createOrder(orderInfo,productsInCart);
+		
+		int id = getBController().createOrder(orderInfo,productsInCart);
+		orderInfo.setId(id);
 		OrderDTO order = new OrderDTO(orderInfo);
 		order.setOrderMediaList(productsInCart);
 		

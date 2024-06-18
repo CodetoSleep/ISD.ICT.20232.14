@@ -60,7 +60,7 @@ public class PaymentController extends BaseController {
             mailController.sendInvoiceEmail(invoice);
             this.vnPayService = new VnPaySubsystem();
             var trans = vnPayService.makePaymentTransaction(res);
-            trans.save(orderId);
+            trans.save(invoice.getOrder().getId());
             result.put("RESULT", "PAYMENT SUCCESSFUL!");
             result.put("MESSAGE", "You have succesffully paid the order!");
         } catch (PaymentException | UnrecognizedException | SQLException ex) {
