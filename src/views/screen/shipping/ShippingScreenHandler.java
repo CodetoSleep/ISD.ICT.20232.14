@@ -19,7 +19,9 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -48,6 +50,12 @@ public class ShippingScreenHandler extends BaseScreenHandler implements Initiali
 
 	@FXML
 	private TextField instructions;
+	
+	@FXML
+	private DatePicker time;
+	
+	@FXML
+	private CheckBox rushOrder;
 
 	@FXML
 	private ComboBox<String> province;
@@ -69,6 +77,37 @@ public class ShippingScreenHandler extends BaseScreenHandler implements Initiali
             }
         });
 		this.province.getItems().addAll(Configs.PROVINCES);
+		rushOrder.setOnAction(e->{
+			int isRushOrder = new PlaceOrderController().checkRushOrder(productsInCart);
+			if(rushOrder.isSelected()) {
+				if(isRushOrder==0) {
+					rushOrder.setSelected(false);
+					try {
+						PopupScreen.error("No item possible for rush order");
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+				}
+				if(isRushOrder==1) {
+					try {
+						PopupScreen.error("Warning, items that aren't possible for rush order will be delivered seperately with seperate delivery fees");
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+					instructions.setDisable(false);
+					time.setDisable(false);
+				}
+				if(isRushOrder == 2) {
+					instructions.setDisable(false);
+					time.setDisable(false);
+				}
+			}
+			else {
+				instructions.setDisable(true);
+				time.setDisable(true);
+			}
+		});
+		
 	}
 
 	@FXML
@@ -100,10 +139,15 @@ public class ShippingScreenHandler extends BaseScreenHandler implements Initiali
             PopupScreen.error("Address is not valid!");
             return;
         }
+        if(rushOrder.isSelected()&& !placeOrderCtrl.validateDate(time.getValue())) {
+        	PopupScreen.error("Date is not valid");
+        	return;
+        }
         if (province.getValue() == null) {
             PopupScreen.error("Province is empty!");
             return;
         }
+        
 		try {
 			// process and validate delivery info
 			getBController().processDeliveryInfo(messages);
@@ -112,11 +156,11 @@ public class ShippingScreenHandler extends BaseScreenHandler implements Initiali
 		}
 	
 		// calculate shipping fees
-		int shippingFees = getBController().calculateShippingFee(productsInCart) + getBController().calculateItemsValue(productsInCart);
+		int shippingFees = getBController().calculateShippingFee(productsInCart,rushOrder.isSelected()?1:0) + getBController().calculateItemsValue(productsInCart);
 		//order.setShippingFees(shippingFees);
 		//order.setDeliveryInfo(messages);
-		//TODO FIX DATE:
-		Order orderInfo = new Order(email.getText(), province.getValue(), address.getText(), phone.getText(), 0, shippingFees, 0,"Waiting Approval",name.getText(), Date.valueOf("2024-06-13"),instructions.getText());
+		
+		Order orderInfo = new Order(email.getText(), province.getValue(), address.getText(), phone.getText(), rushOrder.isSelected()?1:0, shippingFees, 0,"Waiting Approval",name.getText(), Date.valueOf(time.getValue()),instructions.getText());
 		getBController().createOrder(orderInfo,productsInCart);
 		OrderDTO order = new OrderDTO(orderInfo);
 		order.setOrderMediaList(productsInCart);

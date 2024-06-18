@@ -76,7 +76,7 @@ public class InvoiceScreenHandler extends BaseScreenHandler {
 		//instructions.setText(deliveryInfo.get("instructions"));
 		address.setText(order.getAddress());
 		subtotal.setText(Utils.getCurrencyFormat( controller.calculateItemsValue(productList)));
-		shippingFees.setText(Utils.getCurrencyFormat(controller.calculateShippingFee(productList)));
+		shippingFees.setText(Utils.getCurrencyFormat(controller.calculateShippingFee(productList,order.getRushhOrder())));
 		int amount = order.getShippingFee();
 		total.setText(Utils.getCurrencyFormat(amount));
 		invoice.setAmount(amount);

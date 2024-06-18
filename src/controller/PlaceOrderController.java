@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.logging.Logger;
 import entity.cart.Cart;
@@ -156,18 +157,43 @@ public class PlaceOrderController extends BaseController{
             return false;
         return true;
     }
+    public boolean validateDate(LocalDate date) {
+    	if(date == null)return false;
+    	else {
+    		if(!date.isAfter(LocalDate.now()))return false;
+    		return true;
+    	}
+    	
+    }
     
     public boolean validateAddress(String address) {
     	// TODO: your work
     	return false;
     }
-    
-    //need to improve this
-    public int calculateShippingFee(List<OrderMedia> order){
+    // 0 means no, 1 means some items qualify, 2 means all items qualify
+    public int checkRushOrder(List<OrderMedia> order) {
+    	int noRush = 0;
+    	int yesRush = 0;
+    	for (Object object : order) {
+            OrderMedia om = (OrderMedia) object;
+            if(om.getMedia().getRushOrder()==0)noRush++;
+            else yesRush++;
+        }
+    	if(noRush==0 && yesRush >0)return 2;
+    	if(noRush>0&&yesRush>0)return 1;
+    	if(noRush>0&&yesRush==0)return 0;
+    	return 0;
+    }
+    public int calculateShippingFee(List<OrderMedia> order, int rushOrder){
         int itemPrice = calculateItemsValue(order);
+        int rushOrderItems = 0;
+        for (Object object : order) {
+            OrderMedia om = (OrderMedia) object;
+            rushOrderItems += om.getMedia().getRushOrder();
+        }
         
         Random rand = new Random();
-        int fees = (int)( ( (rand.nextFloat()*10)/100 ) * itemPrice );
+        int fees = (int)( ( (rand.nextFloat()*10)/100 ) * itemPrice + rushOrderItems* 10000 );
         LOGGER.info("Order Amount: " + itemPrice + " -- Shipping Fees: " + fees);
         return fees;
     }
