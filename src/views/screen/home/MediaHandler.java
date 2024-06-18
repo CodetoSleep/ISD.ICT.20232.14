@@ -51,13 +51,14 @@ public class MediaHandler extends FXMLScreenHandler{
         this.home = home;
         addToCartBtn.setOnMouseClicked(event -> {
             try {
-                if (spinnerChangeNumber.getValue() > media.getQuantity()) throw new MediaNotAvailableException();
                 Cart cart = Cart.getCart();
                 // if media already in cart then we will increase the quantity by 1 instead of create the new cartMedia
                 CartMedia mediaInCart = home.getBController().checkMediaInCart(media);
                 if (mediaInCart != null) {
-                    mediaInCart.setQuantity(mediaInCart.getQuantity() + 1);
+                	if (Cart.getCart().checkMediaInCart(media).getQuantity() + spinnerChangeNumber.getValue() > media.getQuantity()) throw new MediaNotAvailableException();
+                    mediaInCart.setQuantity(mediaInCart.getQuantity() + spinnerChangeNumber.getValue());
                 }else{
+                	if (spinnerChangeNumber.getValue() > media.getQuantity()) throw new MediaNotAvailableException();
                     CartMedia cartMedia = new CartMedia(media, cart, spinnerChangeNumber.getValue(), media.getPrice());
                     cart.getListMedia().add(cartMedia);
                     LOGGER.info("Added " + cartMedia.getQuantity() + " " + media.getTitle() + " to cart");
@@ -70,7 +71,7 @@ public class MediaHandler extends FXMLScreenHandler{
                 PopupScreen.success("The media " + media.getTitle() + " added to Cart");
             } catch (MediaNotAvailableException exp) {
                 try {
-                    String message = "Not enough media:\nRequired: " + spinnerChangeNumber.getValue() + "\nAvail: " + media.getQuantity();
+                    String message = "Not enough media:\nRequired: " + (Cart.getCart().checkMediaInCart(media).getQuantity() + spinnerChangeNumber.getValue() ) + "\nAvail: " + media.getQuantity();
                     LOGGER.severe(message);
                     PopupScreen.error(message);
                 } catch (Exception e) {

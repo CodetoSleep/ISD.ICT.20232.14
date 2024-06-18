@@ -173,7 +173,7 @@ public class AdminScreenHandler extends BaseScreenHandler implements Initializab
     }
 
 
-    public void addMediaHome(List items){
+    private void addMediaHome(List items){
         ArrayList mediaItems = (ArrayList)((ArrayList) items).clone();
         hboxMedia.getChildren().forEach(node -> {
             VBox vBox = (VBox) node;
