@@ -122,7 +122,7 @@ public class Order {
     
     public void updateIsPaidByOrderId(int orderId) throws SQLException {
         Connection connection = AIMSDB.getConnection();
-        String sql = "UPDATE Order SET isPaid = 1 WHERE id = ?";
+        String sql = "UPDATE `Order` SET isPaid = 1 WHERE id = ?";
         PreparedStatement pstmt = connection.prepareStatement(sql);
 
         pstmt.setInt(1, orderId);
